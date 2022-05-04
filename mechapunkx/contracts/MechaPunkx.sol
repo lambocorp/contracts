@@ -248,14 +248,4 @@ contract MechaPunkx is ERC721, ERC721Enumerable, ERC721Burnable, Ownable, Reentr
 	function setBaseURI(string memory baseURI) public onlyOwner {
 		baseTokenURI = baseURI;
 	}
-
-	// TODO: FOR TEST ONLY
-	// function updateYieldStart(uint256 diff) public {
-	// 	// If reversing time, update lambo yield starts
-	// 	for (uint256 i=0; i < 20; i++) {
-	// 		if (yieldsLambo(i)) {
-	// 			lamboYieldStart[i] -= diff;
-	// 		}
-	// 	}
-	// }
 }

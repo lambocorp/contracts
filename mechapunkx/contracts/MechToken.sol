@@ -19,11 +19,6 @@ contract MechToken is ERC20, ERC20Burnable, Ownable {
 
 	MechaPunkx private MechaPunkxNFT;
 
-	// TESTING ONLY
-	function setStartTime(uint256 time) public {
-		startTime = time;
-	}
-
 	// Map NFT ID to MECH claimed, resets on NFT transfer, "offset" is a better name
 	mapping(uint256 => uint256) private claimed;
 

@@ -27,7 +27,7 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 	// Manager can modify LAMBO token settings
 	address private manager = address(this); 
 	// Dao receives percentage of burned LAMBO
-	address public dao = address(this); // 0x9615f693C05258594ac9b0d85251ae4719395D77
+	address public dao = 0x9615f693C05258594ac9b0d85251ae4719395D77;
 	uint256 public daoPercentage = 30;
 	
 	MechaPunkx private MechaPunkxNFT;
@@ -65,27 +65,6 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 	modifier onlyLamboCorp() {
 		require(msg.sender == owner() || msg.sender == manager, "Not allowed");
 		_;
-	}
-
-	// Need this one to initially match the contract deploy time to the mech token I think
-	function setStartTimeInitial(uint256 time) public {
-		startTime = time;
-	}
-	// TODO: FOR TESTING *****************
-	function setStartTime(uint256 time) public {
-		// Assuming we only go backwards in time for the test
-		require(time <= startTime, "Time set must go backwards");
-		uint256 diff = startTime - time;
-		startTime = time;
-
-		// Shift backwards all emission rates changes
-		for (uint256 i = 0; i < emissionRateChanges.length; i++) {
-			emissionRateChanges[i] -= diff;
-		}
-		burnIntervalStart -= diff;
-		// MechaPunkxNFT.updateYieldStart(diff); // Contract size was too large
-		// alternatively, wrap block.timestamp/currentTime in a function, and update with an offset
-		// but then some discrepancies in that time does not move forward on it's own
 	}
 
 	function setManager(address _manager) external onlyOwner {
