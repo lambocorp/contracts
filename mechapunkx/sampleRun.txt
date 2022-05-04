@@ -1,0 +1,480 @@
+Mech token address:  0x68426c39dFF214dBb3E6e1fBD80213Edf5cC1BF4
+Start time:  1650194253
+maxEarned:  0
+      ✔ Mint cost scales to 100 (3136ms)
+Mech token address:  0xA4E4a335f7030dF6Ac02a8771E0167eB6EfEf9A1
+Start time:  1650194257
+maxEarned:  0
+Day 0, skipping 10 days
+Account [4], MECH [18], NFTs: [2] -- minting 1 at cost [10], (after) MECH [8]
+Account [5], MECH [27], NFTs: [3] -- minting 1 at cost [10], (after) MECH [17]
+Account [5], MECH [17], NFTs: [3] -- minting 1 at cost [10], (after) MECH [7]
+Account [7], MECH [27], NFTs: [3] -- minting 1 at cost [10], (after) MECH [17]
+Account [7], MECH [17], NFTs: [3] -- minting 1 at cost [10], (after) MECH [7]
+
+Day [10], minted [17], circulating MECH [58]
+-----------------------------------------------------------------------
+Account [0], MechaPunkx [0], MECH [0]
+Account [1], MechaPunkx [1], MECH [9]
+Account [2], MechaPunkx [1], MECH [9]
+Account [3], MechaPunkx [1], MECH [9]
+Account [4], MechaPunkx [3], MECH [8]
+Account [5], MechaPunkx [5], MECH [7]
+Account [6], MechaPunkx [1], MECH [9]
+Account [7], MechaPunkx [5], MECH [7]
+
+
+Day 10, skipping 10 days
+Account [1], MECH [20], NFTs: [1] -- minting 1 at cost [20], (after) MECH [0]
+Account [2], MECH [20], NFTs: [1] -- minting 1 at cost [20], (after) MECH [0]
+Account [3], MECH [20], NFTs: [1] -- minting 1 at cost [20], (after) MECH [0]
+Account [4], MECH [40], NFTs: [3] -- minting 1 at cost [20], (after) MECH [20]
+Account [4], MECH [20], NFTs: [3] -- minting 1 at cost [20], (after) MECH [0]
+Account [5], MECH [60], NFTs: [5] -- minting 1 at cost [20], (after) MECH [40]
+Account [5], MECH [40], NFTs: [5] -- minting 1 at cost [20], (after) MECH [20]
+Account [5], MECH [20], NFTs: [5] -- minting 1 at cost [20], (after) MECH [0]
+Account [6], MECH [20], NFTs: [1] -- minting 1 at cost [20], (after) MECH [0]
+Account [7], MECH [60], NFTs: [5] -- minting 1 at cost [20], (after) MECH [40]
+Account [7], MECH [40], NFTs: [5] -- minting 1 at cost [20], (after) MECH [20]
+Account [7], MECH [20], NFTs: [5] -- minting 1 at cost [20], (after) MECH [0]
+
+Day [20], minted [29], circulating MECH [0]
+-----------------------------------------------------------------------
+Account [0], MechaPunkx [0], MECH [0]
+Account [1], MechaPunkx [2], MECH [0]
+Account [2], MechaPunkx [2], MECH [0]
+Account [3], MechaPunkx [2], MECH [0]
+Account [4], MechaPunkx [5], MECH [0]
+Account [5], MechaPunkx [8], MECH [0]
+Account [6], MechaPunkx [2], MECH [0]
+Account [7], MechaPunkx [8], MECH [0]
+
+
+Day 20, skipping 10 days
+Account [4], MECH [50], NFTs: [5] -- minting 1 at cost [30], (after) MECH [20]
+Account [5], MECH [80], NFTs: [8] -- minting 1 at cost [30], (after) MECH [50]
+Account [5], MECH [50], NFTs: [8] -- minting 1 at cost [30], (after) MECH [20]
+Account [7], MECH [80], NFTs: [8] -- minting 1 at cost [30], (after) MECH [50]
+Account [7], MECH [50], NFTs: [8] -- minting 1 at cost [30], (after) MECH [20]
+
+Day [30], minted [34], circulating MECH [140]
+-----------------------------------------------------------------------
+Account [0], MechaPunkx [0], MECH [0]
+Account [1], MechaPunkx [2], MECH [20]
+Account [2], MechaPunkx [2], MECH [20]
+Account [3], MechaPunkx [2], MECH [20]
+Account [4], MechaPunkx [6], MECH [20]
+Account [5], MechaPunkx [10], MECH [20]
+Account [6], MechaPunkx [2], MECH [20]
+Account [7], MechaPunkx [10], MECH [20]
+
+
+Day 30, skipping 10 days
+Account [1], MECH [40], NFTs: [2] -- minting 1 at cost [40], (after) MECH [0]
+Account [2], MECH [40], NFTs: [2] -- minting 1 at cost [40], (after) MECH [0]
+Account [3], MECH [40], NFTs: [2] -- minting 1 at cost [40], (after) MECH [0]
+Account [4], MECH [80], NFTs: [6] -- minting 1 at cost [40], (after) MECH [40]
+Account [4], MECH [40], NFTs: [6] -- minting 1 at cost [40], (after) MECH [0]
+Account [5], MECH [120], NFTs: [10] -- minting 1 at cost [40], (after) MECH [80]
+Account [5], MECH [80], NFTs: [10] -- minting 1 at cost [40], (after) MECH [40]
+Account [5], MECH [40], NFTs: [10] -- minting 1 at cost [40], (after) MECH [0]
+Account [6], MECH [40], NFTs: [2] -- minting 1 at cost [40], (after) MECH [0]
+Account [7], MECH [120], NFTs: [10] -- minting 1 at cost [40], (after) MECH [80]
+Account [7], MECH [80], NFTs: [10] -- minting 1 at cost [40], (after) MECH [40]
+Account [7], MECH [40], NFTs: [10] -- minting 1 at cost [40], (after) MECH [0]
+
+Day [40], minted [46], circulating MECH [0]
+-----------------------------------------------------------------------
+Account [0], MechaPunkx [0], MECH [0]
+Account [1], MechaPunkx [3], MECH [0]
+Account [2], MechaPunkx [3], MECH [0]
+Account [3], MechaPunkx [3], MECH [0]
+Account [4], MechaPunkx [8], MECH [0]
+Account [5], MechaPunkx [13], MECH [0]
+Account [6], MechaPunkx [3], MECH [0]
+Account [7], MechaPunkx [13], MECH [0]
+
+
+Day 40, skipping 10 days
+Account [4], MECH [80], NFTs: [8] -- minting 1 at cost [50], (after) MECH [30]
+Account [5], MECH [130], NFTs: [13] -- minting 1 at cost [50], (after) MECH [80]
+Account [5], MECH [80], NFTs: [13] -- minting 1 at cost [50], (after) MECH [30]
+Account [7], MECH [130], NFTs: [13] -- minting 1 at cost [50], (after) MECH [80]
+Account [7], MECH [80], NFTs: [13] -- minting 1 at cost [50], (after) MECH [30]
+
+Day [50], minted [51], circulating MECH [210]
+-----------------------------------------------------------------------
+Account [0], MechaPunkx [0], MECH [0]
+Account [1], MechaPunkx [3], MECH [30]
+Account [2], MechaPunkx [3], MECH [30]
+Account [3], MechaPunkx [3], MECH [30]
+Account [4], MechaPunkx [9], MECH [30]
+Account [5], MechaPunkx [15], MECH [30]
+Account [6], MechaPunkx [3], MECH [30]
+Account [7], MechaPunkx [15], MECH [30]
+
+
+Day 50, skipping 10 days
+Account [1], MECH [60], NFTs: [3] -- minting 1 at cost [60], (after) MECH [0]
+Account [2], MECH [60], NFTs: [3] -- minting 1 at cost [60], (after) MECH [0]
+Account [3], MECH [60], NFTs: [3] -- minting 1 at cost [60], (after) MECH [0]
+Account [4], MECH [120], NFTs: [9] -- minting 1 at cost [60], (after) MECH [60]
+Account [4], MECH [60], NFTs: [9] -- minting 1 at cost [60], (after) MECH [0]
+Account [5], MECH [180], NFTs: [15] -- minting 1 at cost [60], (after) MECH [120]
+Account [5], MECH [120], NFTs: [15] -- minting 1 at cost [60], (after) MECH [60]
+Account [5], MECH [60], NFTs: [15] -- minting 1 at cost [60], (after) MECH [0]
+Account [6], MECH [60], NFTs: [3] -- minting 1 at cost [60], (after) MECH [0]
+Account [7], MECH [180], NFTs: [15] -- minting 1 at cost [60], (after) MECH [120]
+Account [7], MECH [120], NFTs: [15] -- minting 1 at cost [60], (after) MECH [60]
+Account [7], MECH [60], NFTs: [15] -- minting 1 at cost [60], (after) MECH [0]
+
+Day [60], minted [63], circulating MECH [0]
+-----------------------------------------------------------------------
+Account [0], MechaPunkx [0], MECH [0]
+Account [1], MechaPunkx [4], MECH [0]
+Account [2], MechaPunkx [4], MECH [0]
+Account [3], MechaPunkx [4], MECH [0]
+Account [4], MechaPunkx [11], MECH [0]
+Account [5], MechaPunkx [18], MECH [0]
+Account [6], MechaPunkx [4], MECH [0]
+Account [7], MechaPunkx [18], MECH [0]
+
+
+Day 60, skipping 10 days
+Account [4], MECH [110], NFTs: [11] -- minting 1 at cost [70], (after) MECH [40]
+Account [5], MECH [180], NFTs: [18] -- minting 1 at cost [70], (after) MECH [110]
+Account [5], MECH [110], NFTs: [18] -- minting 1 at cost [70], (after) MECH [40]
+Account [7], MECH [180], NFTs: [18] -- minting 1 at cost [70], (after) MECH [110]
+Account [7], MECH [110], NFTs: [18] -- minting 1 at cost [70], (after) MECH [40]
+
+Day [70], minted [68], circulating MECH [280]
+-----------------------------------------------------------------------
+Account [0], MechaPunkx [0], MECH [0]
+Account [1], MechaPunkx [4], MECH [40]
+Account [2], MechaPunkx [4], MECH [40]
+Account [3], MechaPunkx [4], MECH [40]
+Account [4], MechaPunkx [12], MECH [40]
+Account [5], MechaPunkx [20], MECH [40]
+Account [6], MechaPunkx [4], MECH [40]
+Account [7], MechaPunkx [20], MECH [40]
+
+
+Day 70, skipping 10 days
+Account [1], MECH [80], NFTs: [4] -- minting 1 at cost [80], (after) MECH [0]
+Account [2], MECH [80], NFTs: [4] -- minting 1 at cost [80], (after) MECH [0]
+Account [3], MECH [80], NFTs: [4] -- minting 1 at cost [80], (after) MECH [0]
+Account [4], MECH [160], NFTs: [12] -- minting 1 at cost [80], (after) MECH [80]
+Account [4], MECH [80], NFTs: [12] -- minting 1 at cost [80], (after) MECH [0]
+Account [5], MECH [240], NFTs: [20] -- minting 1 at cost [80], (after) MECH [160]
+Account [5], MECH [160], NFTs: [20] -- minting 1 at cost [80], (after) MECH [80]
+Account [5], MECH [80], NFTs: [20] -- minting 1 at cost [80], (after) MECH [0]
+Account [6], MECH [80], NFTs: [4] -- minting 1 at cost [80], (after) MECH [0]
+Account [7], MECH [240], NFTs: [20] -- minting 1 at cost [80], (after) MECH [160]
+Account [7], MECH [160], NFTs: [20] -- minting 1 at cost [80], (after) MECH [80]
+Account [7], MECH [80], NFTs: [20] -- minting 1 at cost [80], (after) MECH [0]
+
+Day [80], minted [80], circulating MECH [0]
+-----------------------------------------------------------------------
+Account [0], MechaPunkx [0], MECH [0]
+Account [1], MechaPunkx [5], MECH [0]
+Account [2], MechaPunkx [5], MECH [0]
+Account [3], MechaPunkx [5], MECH [0]
+Account [4], MechaPunkx [14], MECH [0]
+Account [5], MechaPunkx [23], MECH [0]
+Account [6], MechaPunkx [5], MECH [0]
+Account [7], MechaPunkx [23], MECH [0]
+
+
+Day 80, skipping 10 days
+Account [4], MECH [140], NFTs: [14] -- minting 1 at cost [90], (after) MECH [50]
+Account [5], MECH [230], NFTs: [23] -- minting 1 at cost [90], (after) MECH [140]
+Account [5], MECH [140], NFTs: [23] -- minting 1 at cost [90], (after) MECH [50]
+Account [7], MECH [230], NFTs: [23] -- minting 1 at cost [90], (after) MECH [140]
+Account [7], MECH [140], NFTs: [23] -- minting 1 at cost [90], (after) MECH [50]
+
+Day [90], minted [85], circulating MECH [350]
+-----------------------------------------------------------------------
+Account [0], MechaPunkx [0], MECH [0]
+Account [1], MechaPunkx [5], MECH [50]
+Account [2], MechaPunkx [5], MECH [50]
+Account [3], MechaPunkx [5], MECH [50]
+Account [4], MechaPunkx [15], MECH [50]
+Account [5], MechaPunkx [25], MECH [50]
+Account [6], MechaPunkx [5], MECH [50]
+Account [7], MechaPunkx [25], MECH [50]
+
+
+Day 90, skipping 10 days
+Account [1], MECH [100], NFTs: [5] -- minting 1 at cost [100], (after) MECH [0]
+Account [2], MECH [100], NFTs: [5] -- minting 1 at cost [100], (after) MECH [0]
+Account [3], MECH [100], NFTs: [5] -- minting 1 at cost [100], (after) MECH [0]
+Account [4], MECH [200], NFTs: [15] -- minting 1 at cost [100], (after) MECH [100]
+Account [4], MECH [100], NFTs: [15] -- minting 1 at cost [100], (after) MECH [0]
+Account [5], MECH [300], NFTs: [25] -- minting 1 at cost [100], (after) MECH [200]
+Account [5], MECH [200], NFTs: [25] -- minting 1 at cost [100], (after) MECH [100]
+Account [5], MECH [100], NFTs: [25] -- minting 1 at cost [100], (after) MECH [0]
+Account [6], MECH [100], NFTs: [5] -- minting 1 at cost [100], (after) MECH [0]
+Account [7], MECH [300], NFTs: [25] -- minting 1 at cost [100], (after) MECH [200]
+Account [7], MECH [200], NFTs: [25] -- minting 1 at cost [100], (after) MECH [100]
+Account [7], MECH [100], NFTs: [25] -- minting 1 at cost [100], (after) MECH [0]
+
+Day [100], minted [97], circulating MECH [0]
+-----------------------------------------------------------------------
+Account [0], MechaPunkx [0], MECH [0]
+Account [1], MechaPunkx [6], MECH [0]
+Account [2], MechaPunkx [6], MECH [0]
+Account [3], MechaPunkx [6], MECH [0]
+Account [4], MechaPunkx [17], MECH [0]
+Account [5], MechaPunkx [28], MECH [0]
+Account [6], MechaPunkx [6], MECH [0]
+Account [7], MechaPunkx [28], MECH [0]
+
+
+Day 100, skipping 10 days
+Account [4], MECH [170], NFTs: [17] -- minting 1 at cost [100], (after) MECH [70]
+Account [5], MECH [280], NFTs: [28] -- minting 1 at cost [100], (after) MECH [180]
+Account [5], MECH [180], NFTs: [28] -- minting 1 at cost [100], (after) MECH [80]
+Account [7], MECH [280], NFTs: [28] -- minting 1 at cost [100], (after) MECH [180]
+Account [7], MECH [180], NFTs: [28] -- minting 1 at cost [100], (after) MECH [80]
+
+Day [110], minted [102], circulating MECH [470]
+-----------------------------------------------------------------------
+Account [0], MechaPunkx [0], MECH [0]
+Account [1], MechaPunkx [6], MECH [60]
+Account [2], MechaPunkx [6], MECH [60]
+Account [3], MechaPunkx [6], MECH [60]
+Account [4], MechaPunkx [18], MECH [70]
+Account [5], MechaPunkx [30], MECH [80]
+Account [6], MechaPunkx [6], MECH [60]
+Account [7], MechaPunkx [30], MECH [80]
+
+
+Day 110, skipping 10 days
+Account [1], MECH [120], NFTs: [6] -- minting 1 at cost [100], (after) MECH [20]
+Account [2], MECH [120], NFTs: [6] -- minting 1 at cost [100], (after) MECH [20]
+Account [3], MECH [120], NFTs: [6] -- minting 1 at cost [100], (after) MECH [20]
+Account [4], MECH [250], NFTs: [18] -- minting 1 at cost [100], (after) MECH [150]
+Account [4], MECH [150], NFTs: [18] -- minting 1 at cost [100], (after) MECH [50]
+Account [5], MECH [380], NFTs: [30] -- minting 1 at cost [100], (after) MECH [280]
+Account [5], MECH [280], NFTs: [30] -- minting 1 at cost [100], (after) MECH [180]
+Account [5], MECH [180], NFTs: [30] -- minting 1 at cost [100], (after) MECH [80]
+Account [6], MECH [120], NFTs: [6] -- minting 1 at cost [100], (after) MECH [20]
+Account [7], MECH [380], NFTs: [30] -- minting 1 at cost [100], (after) MECH [280]
+Account [7], MECH [280], NFTs: [30] -- minting 1 at cost [100], (after) MECH [180]
+Account [7], MECH [180], NFTs: [30] -- minting 1 at cost [100], (after) MECH [80]
+
+Day [120], minted [114], circulating MECH [290]
+-----------------------------------------------------------------------
+Account [0], MechaPunkx [0], MECH [0]
+Account [1], MechaPunkx [7], MECH [20]
+Account [2], MechaPunkx [7], MECH [20]
+Account [3], MechaPunkx [7], MECH [20]
+Account [4], MechaPunkx [20], MECH [50]
+Account [5], MechaPunkx [33], MECH [80]
+Account [6], MechaPunkx [7], MECH [20]
+Account [7], MechaPunkx [33], MECH [80]
+
+
+Day 120, skipping 10 days
+Account [4], MECH [250], NFTs: [20] -- minting 1 at cost [100], (after) MECH [150]
+Account [4], MECH [150], NFTs: [20] -- minting 1 at cost [100], (after) MECH [50]
+Account [5], MECH [410], NFTs: [33] -- minting 1 at cost [100], (after) MECH [310]
+Account [5], MECH [310], NFTs: [33] -- minting 1 at cost [100], (after) MECH [210]
+Account [5], MECH [210], NFTs: [33] -- minting 1 at cost [100], (after) MECH [110]
+Account [5], MECH [110], NFTs: [33] -- minting 1 at cost [100], (after) MECH [10]
+Account [7], MECH [410], NFTs: [33] -- minting 1 at cost [100], (after) MECH [310]
+Account [7], MECH [310], NFTs: [33] -- minting 1 at cost [100], (after) MECH [210]
+Account [7], MECH [210], NFTs: [33] -- minting 1 at cost [100], (after) MECH [110]
+Account [7], MECH [110], NFTs: [33] -- minting 1 at cost [100], (after) MECH [10]
+
+Day [130], minted [124], circulating MECH [430]
+-----------------------------------------------------------------------
+Account [0], MechaPunkx [0], MECH [0]
+Account [1], MechaPunkx [7], MECH [90]
+Account [2], MechaPunkx [7], MECH [90]
+Account [3], MechaPunkx [7], MECH [90]
+Account [4], MechaPunkx [22], MECH [50]
+Account [5], MechaPunkx [37], MECH [10]
+Account [6], MechaPunkx [7], MECH [90]
+Account [7], MechaPunkx [37], MECH [10]
+
+
+Day 130, skipping 10 days
+Account [1], MECH [160], NFTs: [7] -- minting 1 at cost [100], (after) MECH [60]
+Account [2], MECH [160], NFTs: [7] -- minting 1 at cost [100], (after) MECH [60]
+Account [3], MECH [160], NFTs: [7] -- minting 1 at cost [100], (after) MECH [60]
+Account [4], MECH [270], NFTs: [22] -- minting 1 at cost [100], (after) MECH [170]
+Account [4], MECH [170], NFTs: [22] -- minting 1 at cost [100], (after) MECH [70]
+Account [5], MECH [380], NFTs: [37] -- minting 1 at cost [100], (after) MECH [280]
+Account [5], MECH [280], NFTs: [37] -- minting 1 at cost [100], (after) MECH [180]
+Account [5], MECH [180], NFTs: [37] -- minting 1 at cost [100], (after) MECH [80]
+Account [6], MECH [160], NFTs: [7] -- minting 1 at cost [100], (after) MECH [60]
+Account [7], MECH [380], NFTs: [37] -- minting 1 at cost [100], (after) MECH [280]
+Account [7], MECH [280], NFTs: [37] -- minting 1 at cost [100], (after) MECH [180]
+Account [7], MECH [180], NFTs: [37] -- minting 1 at cost [100], (after) MECH [80]
+
+Day [140], minted [136], circulating MECH [470]
+-----------------------------------------------------------------------
+Account [0], MechaPunkx [0], MECH [0]
+Account [1], MechaPunkx [8], MECH [60]
+Account [2], MechaPunkx [8], MECH [60]
+Account [3], MechaPunkx [8], MECH [60]
+Account [4], MechaPunkx [24], MECH [70]
+Account [5], MechaPunkx [40], MECH [80]
+Account [6], MechaPunkx [8], MECH [60]
+Account [7], MechaPunkx [40], MECH [80]
+
+
+Day 140, skipping 10 days
+Account [1], MECH [140], NFTs: [8] -- minting 1 at cost [100], (after) MECH [40]
+Account [2], MECH [140], NFTs: [8] -- minting 1 at cost [100], (after) MECH [40]
+Account [3], MECH [140], NFTs: [8] -- minting 1 at cost [100], (after) MECH [40]
+Account [4], MECH [310], NFTs: [24] -- minting 1 at cost [100], (after) MECH [210]
+Account [4], MECH [210], NFTs: [24] -- minting 1 at cost [100], (after) MECH [110]
+Account [4], MECH [110], NFTs: [24] -- minting 1 at cost [100], (after) MECH [10]
+Account [5], MECH [480], NFTs: [40] -- minting 1 at cost [100], (after) MECH [380]
+Account [5], MECH [380], NFTs: [40] -- minting 1 at cost [100], (after) MECH [280]
+Account [5], MECH [280], NFTs: [40] -- minting 1 at cost [100], (after) MECH [180]
+Account [5], MECH [180], NFTs: [40] -- minting 1 at cost [100], (after) MECH [80]
+Account [6], MECH [140], NFTs: [8] -- minting 1 at cost [100], (after) MECH [40]
+Account [7], MECH [480], NFTs: [40] -- minting 1 at cost [100], (after) MECH [380]
+Account [7], MECH [380], NFTs: [40] -- minting 1 at cost [100], (after) MECH [280]
+Account [7], MECH [280], NFTs: [40] -- minting 1 at cost [100], (after) MECH [180]
+Account [7], MECH [180], NFTs: [40] -- minting 1 at cost [100], (after) MECH [80]
+
+Day [150], minted [151], circulating MECH [330]
+-----------------------------------------------------------------------
+Account [0], MechaPunkx [0], MECH [0]
+Account [1], MechaPunkx [9], MECH [40]
+Account [2], MechaPunkx [9], MECH [40]
+Account [3], MechaPunkx [9], MECH [40]
+Account [4], MechaPunkx [27], MECH [10]
+Account [5], MechaPunkx [44], MECH [80]
+Account [6], MechaPunkx [9], MECH [40]
+Account [7], MechaPunkx [44], MECH [80]
+
+
+Day 150, skipping 10 days
+Account [1], MECH [130], NFTs: [9] -- minting 1 at cost [100], (after) MECH [30]
+Account [2], MECH [130], NFTs: [9] -- minting 1 at cost [100], (after) MECH [30]
+Account [3], MECH [130], NFTs: [9] -- minting 1 at cost [100], (after) MECH [30]
+Account [4], MECH [280], NFTs: [27] -- minting 1 at cost [100], (after) MECH [180]
+Account [4], MECH [180], NFTs: [27] -- minting 1 at cost [100], (after) MECH [80]
+Account [5], MECH [520], NFTs: [44] -- minting 1 at cost [100], (after) MECH [420]
+Account [5], MECH [420], NFTs: [44] -- minting 1 at cost [100], (after) MECH [320]
+Account [5], MECH [320], NFTs: [44] -- minting 1 at cost [100], (after) MECH [220]
+Account [5], MECH [220], NFTs: [44] -- minting 1 at cost [100], (after) MECH [120]
+Account [5], MECH [120], NFTs: [44] -- minting 1 at cost [100], (after) MECH [20]
+Account [6], MECH [130], NFTs: [9] -- minting 1 at cost [100], (after) MECH [30]
+Account [7], MECH [520], NFTs: [44] -- minting 1 at cost [100], (after) MECH [420]
+Account [7], MECH [420], NFTs: [44] -- minting 1 at cost [100], (after) MECH [320]
+Account [7], MECH [320], NFTs: [44] -- minting 1 at cost [100], (after) MECH [220]
+Account [7], MECH [220], NFTs: [44] -- minting 1 at cost [100], (after) MECH [120]
+Account [7], MECH [120], NFTs: [44] -- minting 1 at cost [100], (after) MECH [20]
+
+Day [160], minted [167], circulating MECH [240]
+-----------------------------------------------------------------------
+Account [0], MechaPunkx [0], MECH [0]
+Account [1], MechaPunkx [10], MECH [30]
+Account [2], MechaPunkx [10], MECH [30]
+Account [3], MechaPunkx [10], MECH [30]
+Account [4], MechaPunkx [29], MECH [80]
+Account [5], MechaPunkx [49], MECH [20]
+Account [6], MechaPunkx [10], MECH [30]
+Account [7], MechaPunkx [49], MECH [20]
+
+
+Day 160, skipping 10 days
+Account [1], MECH [130], NFTs: [10] -- minting 1 at cost [100], (after) MECH [30]
+Account [2], MECH [130], NFTs: [10] -- minting 1 at cost [100], (after) MECH [30]
+Account [3], MECH [130], NFTs: [10] -- minting 1 at cost [100], (after) MECH [30]
+Account [4], MECH [370], NFTs: [29] -- minting 1 at cost [100], (after) MECH [270]
+Account [4], MECH [270], NFTs: [29] -- minting 1 at cost [100], (after) MECH [170]
+Account [4], MECH [170], NFTs: [29] -- minting 1 at cost [100], (after) MECH [70]
+Account [5], MECH [510], NFTs: [49] -- minting 1 at cost [100], (after) MECH [410]
+Account [5], MECH [410], NFTs: [49] -- minting 1 at cost [100], (after) MECH [310]
+Account [5], MECH [310], NFTs: [49] -- minting 1 at cost [100], (after) MECH [210]
+Account [5], MECH [210], NFTs: [49] -- minting 1 at cost [100], (after) MECH [110]
+Account [5], MECH [110], NFTs: [49] -- minting 1 at cost [100], (after) MECH [10]
+Account [6], MECH [130], NFTs: [10] -- minting 1 at cost [100], (after) MECH [30]
+Account [7], MECH [510], NFTs: [49] -- minting 1 at cost [100], (after) MECH [410]
+Account [7], MECH [410], NFTs: [49] -- minting 1 at cost [100], (after) MECH [310]
+Account [7], MECH [310], NFTs: [49] -- minting 1 at cost [100], (after) MECH [210]
+Account [7], MECH [210], NFTs: [49] -- minting 1 at cost [100], (after) MECH [110]
+Account [7], MECH [110], NFTs: [49] -- minting 1 at cost [100], (after) MECH [10]
+
+Day [170], minted [184], circulating MECH [210]
+-----------------------------------------------------------------------
+Account [0], MechaPunkx [0], MECH [0]
+Account [1], MechaPunkx [11], MECH [30]
+Account [2], MechaPunkx [11], MECH [30]
+Account [3], MechaPunkx [11], MECH [30]
+Account [4], MechaPunkx [32], MECH [70]
+Account [5], MechaPunkx [54], MECH [10]
+Account [6], MechaPunkx [11], MECH [30]
+Account [7], MechaPunkx [54], MECH [10]
+
+
+Day 170, skipping 10 days
+Account [1], MECH [140], NFTs: [11] -- minting 1 at cost [100], (after) MECH [40]
+Account [2], MECH [140], NFTs: [11] -- minting 1 at cost [100], (after) MECH [40]
+Account [3], MECH [140], NFTs: [11] -- minting 1 at cost [100], (after) MECH [40]
+Account [4], MECH [390], NFTs: [32] -- minting 1 at cost [100], (after) MECH [290]
+Account [4], MECH [290], NFTs: [32] -- minting 1 at cost [100], (after) MECH [190]
+Account [4], MECH [190], NFTs: [32] -- minting 1 at cost [100], (after) MECH [90]
+Account [5], MECH [550], NFTs: [54] -- minting 1 at cost [100], (after) MECH [450]
+Account [5], MECH [450], NFTs: [54] -- minting 1 at cost [100], (after) MECH [350]
+Account [5], MECH [350], NFTs: [54] -- minting 1 at cost [100], (after) MECH [250]
+Account [5], MECH [250], NFTs: [54] -- minting 1 at cost [100], (after) MECH [150]
+Account [5], MECH [150], NFTs: [54] -- minting 1 at cost [100], (after) MECH [50]
+Account [6], MECH [140], NFTs: [11] -- minting 1 at cost [100], (after) MECH [40]
+Account [7], MECH [550], NFTs: [54] -- minting 1 at cost [100], (after) MECH [450]
+Account [7], MECH [450], NFTs: [54] -- minting 1 at cost [100], (after) MECH [350]
+Account [7], MECH [350], NFTs: [54] -- minting 1 at cost [100], (after) MECH [250]
+Account [7], MECH [250], NFTs: [54] -- minting 1 at cost [100], (after) MECH [150]
+Account [7], MECH [150], NFTs: [54] -- minting 1 at cost [100], (after) MECH [50]
+
+Day [180], minted [201], circulating MECH [350]
+-----------------------------------------------------------------------
+Account [0], MechaPunkx [0], MECH [0]
+Account [1], MechaPunkx [12], MECH [40]
+Account [2], MechaPunkx [12], MECH [40]
+Account [3], MechaPunkx [12], MECH [40]
+Account [4], MechaPunkx [35], MECH [90]
+Account [5], MechaPunkx [59], MECH [50]
+Account [6], MechaPunkx [12], MECH [40]
+Account [7], MechaPunkx [59], MECH [50]
+
+
+Day 180, skipping 10 days
+Account [1], MECH [160], NFTs: [12] -- minting 1 at cost [100], (after) MECH [60]
+Account [2], MECH [160], NFTs: [12] -- minting 1 at cost [100], (after) MECH [60]
+Account [3], MECH [160], NFTs: [12] -- minting 1 at cost [100], (after) MECH [60]
+Account [4], MECH [440], NFTs: [35] -- minting 1 at cost [100], (after) MECH [340]
+Account [4], MECH [340], NFTs: [35] -- minting 1 at cost [100], (after) MECH [240]
+Account [4], MECH [240], NFTs: [35] -- minting 1 at cost [100], (after) MECH [140]
+Account [4], MECH [140], NFTs: [35] -- minting 1 at cost [100], (after) MECH [40]
+Account [5], MECH [640], NFTs: [59] -- minting 1 at cost [100], (after) MECH [540]
+Account [5], MECH [540], NFTs: [59] -- minting 1 at cost [100], (after) MECH [440]
+Account [5], MECH [440], NFTs: [59] -- minting 1 at cost [100], (after) MECH [340]
+Account [5], MECH [340], NFTs: [59] -- minting 1 at cost [100], (after) MECH [240]
+Account [5], MECH [240], NFTs: [59] -- minting 1 at cost [100], (after) MECH [140]
+Account [5], MECH [140], NFTs: [59] -- minting 1 at cost [100], (after) MECH [40]
+Account [6], MECH [160], NFTs: [12] -- minting 1 at cost [100], (after) MECH [60]
+Account [7], MECH [640], NFTs: [59] -- minting 1 at cost [100], (after) MECH [540]
+Account [7], MECH [540], NFTs: [59] -- minting 1 at cost [100], (after) MECH [440]
+Account [7], MECH [440], NFTs: [59] -- minting 1 at cost [100], (after) MECH [340]
+Account [7], MECH [340], NFTs: [59] -- minting 1 at cost [100], (after) MECH [240]
+Account [7], MECH [240], NFTs: [59] -- minting 1 at cost [100], (after) MECH [140]
+Account [7], MECH [140], NFTs: [59] -- minting 1 at cost [100], (after) MECH [40]
+
+Day [190], minted [221], circulating MECH [360]
+-----------------------------------------------------------------------
+Account [0], MechaPunkx [0], MECH [0]
+Account [1], MechaPunkx [13], MECH [60]
+Account [2], MechaPunkx [13], MECH [60]
+Account [3], MechaPunkx [13], MECH [60]
+Account [4], MechaPunkx [39], MECH [40]
+Account [5], MechaPunkx [65], MECH [40]
+Account [6], MechaPunkx [13], MECH [60]
+Account [7], MechaPunkx [65], MECH [40]
