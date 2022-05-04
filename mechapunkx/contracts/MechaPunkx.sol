@@ -21,8 +21,6 @@ Yields ERC20 LAMBO instead of MECH if converted
 */
 contract MechaPunkx is ERC721, ERC721Enumerable, ERC721Burnable, Ownable, ReentrancyGuard {
 
-	// using Strings for string;
-
 	string public baseTokenURI = "https://lambo.lol/metadata/mechapunkx/";
 	string public contractURI = "https://lambo.lol/mechapunkx/contract.json";
 
@@ -107,8 +105,7 @@ contract MechaPunkx is ERC721, ERC721Enumerable, ERC721Burnable, Ownable, Reentr
 
 	// Public Sale, 200 spots
 	function mintSale(uint256 quantity) public payable nonReentrant() {
-		require(quantity <= 20, "20 or less");
-		require(quantity > 0, "Quantity zero");
+		require(quantity > 0 && quantity <= 20, "Between 1 and 21");
 		require(numMinted + quantity <= MAX_MECHAPUNKX, "Not enough remain");
 		require((0.1 ether * quantity) <= msg.value, "Eth value incorrect");
 		require(saleRemaining - quantity >= 0, "Not enough left for sale");
