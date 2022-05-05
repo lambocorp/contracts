@@ -83,7 +83,7 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 			emissionRateChanges[i] -= diff;
 		}
 		burnIntervalStart -= diff;
-		// MechaPunkxNFT.updateYieldStart(diff); // Contract size was too large
+		MechaPunkxNFT.updateYieldStart(diff); // Contract size was too large
 		// alternatively, wrap block.timestamp/currentTime in a function, and update with an offset
 		// but then some discrepancies in that time does not move forward on it's own
 	}

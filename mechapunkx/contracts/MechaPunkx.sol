@@ -250,12 +250,12 @@ contract MechaPunkx is ERC721, ERC721Enumerable, ERC721Burnable, Ownable, Reentr
 	}
 
 	// TODO: FOR TEST ONLY
-	// function updateYieldStart(uint256 diff) public {
-	// 	// If reversing time, update lambo yield starts
-	// 	for (uint256 i=0; i < 20; i++) {
-	// 		if (yieldsLambo(i)) {
-	// 			lamboYieldStart[i] -= diff;
-	// 		}
-	// 	}
-	// }
+	function updateYieldStart(uint256 diff) public {
+		// If reversing time, update lambo yield starts
+		for (uint256 i=0; i < 20; i++) {
+			if (yieldsLambo(i)) {
+				lamboYieldStart[i] -= diff;
+			}
+		}
+	}
 }

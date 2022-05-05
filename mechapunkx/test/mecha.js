@@ -663,7 +663,7 @@ contract('MechaPunkx', (accounts) => {
 			// let ts = await contract.totalSupply();
 			// console.log("TS: ", ts.toNumber());
 
-			// let ts2 = await contract.nMinted();
+			// let ts2 = await contract.numMinted();
 			// let ts3 = await contract.nBurned();
 			// console.log(ts2.toNumber(), ts3.toNumber());
 
@@ -1986,7 +1986,7 @@ contract('MechaPunkx', (accounts) => {
 			*/
 			// After many rate changes, see what claim cost is
 
-
+			
 			// Test burning a yielding MechaPunkx (already tested above too)
 			await contract.convertYieldToLambo(5, { from: accounts[2] });
 			yieldsLambo = await contract.yieldsLambo(5, { from: accounts[2] });
@@ -2018,7 +2018,7 @@ contract('MechaPunkx', (accounts) => {
 			await contract.mintNFT({ from: accounts[6] });
 			// See if they can keep claiming
 			await passDaysMulti(15);
-			let currentId = await contract.nMinted();
+			let currentId = await contract.numMinted();
 			console.log("Most recent minted NFT: ", currentId.toNumber());
 			await contract.claimMechToken(currentId.toNumber() - 1, { from: accounts[2] }).should.be.rejected;
 			await contract.claimMechToken(currentId.toNumber() - 1, { from: accounts[6] });
@@ -2064,7 +2064,7 @@ contract('MechaPunkx', (accounts) => {
 
 			let totalSupplyMech = await mechToken.totalSupply();
 			let totalSupplyLambo = await lamboContract.totalSupply();
-			let totalMinted = await contract.nMinted();
+			let totalMinted = await contract.numMinted();
 			console.log("Total supply MECH token: ", totalSupplyMech.toNumber());
 			console.log("Total supply LAMBO token: ", totalSupplyLambo.toNumber());
 			console.log("Total MechaPunkx: ", totalMinted.toNumber());
@@ -2183,7 +2183,7 @@ contract('MechaPunkx', (accounts) => {
 
 
 				// Print Summary
-				let numMinted = await contract.nMinted();
+				let numMinted = await contract.numMinted();
 				let totalMech = await mechToken.totalSupply();
 				console.log("\nDay [" + results.day.toString() + "], minted [" + numMinted.toNumber().toString() + 
 					"], circulating MECH [" + totalMech.toNumber().toString() + "]");
