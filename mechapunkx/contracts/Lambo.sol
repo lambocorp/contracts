@@ -214,13 +214,9 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 			uint256 rate = emissionRates[i];
 			uint256 rateChangeStart = emissionRateChanges[i];
 			uint256 rateChangeEnd;
-			if (i == n - 1) {
-				rateChangeEnd = current;
-			}
-			else {
-				rateChangeEnd = emissionRateChanges[i+1];
-			}
-
+			if (i == n - 1) rateChangeEnd = current;
+			else rateChangeEnd = emissionRateChanges[i+1];
+			
 			// Only count intervals after the NFT started yielding
 			if (yieldStartTime < rateChangeEnd) { 
 				uint256 start = rateChangeStart;
@@ -244,8 +240,7 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 		if (canClaim > 0) {
 			createdDuringInterval += canClaim;
 			claimed[tokenId] += canClaim;
-			address owner = MechaPunkxNFT.ownerOf(tokenId);
-			_mint(owner, canClaim);
+			_mint(msg.sender, canClaim);
 		}
 	}
 
