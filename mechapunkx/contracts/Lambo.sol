@@ -68,11 +68,11 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 	}
 
 	// Need this one to initially match the contract deploy time to the mech token I think
-	function setStartTimeInitial(uint256 time) public {
+	function setStartTimeInitial(uint256 time) external {
 		startTime = time;
 	}
 	// TODO: FOR TESTING *****************
-	function setStartTime(uint256 time) public {
+	function setStartTime(uint256 time) external {
 		// Assuming we only go backwards in time for the test
 		require(time <= startTime, "Time set must go backwards");
 		uint256 diff = startTime - time;
@@ -93,21 +93,21 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 	}
 
 	// Set the address where the DAO will receive a percentage of spent LAMBO
-	function setDAO(address _dao) public onlyOwner {
+	function setDAO(address _dao) external onlyOwner {
 		dao = _dao;   
 	}
 
 	// A percentage of all resources burned goes to the DAO, LAMBO being one resource
-	function setDAOPercentage(uint256 perc) public onlyLamboCorp {
+	function setDAOPercentage(uint256 perc) external onlyLamboCorp {
 		require(perc <= 100, "Must be less than 100");
 		daoPercentage = perc;
 	}
 
-	function setUseBurnRate(bool status) public onlyOwner {
+	function setUseBurnRate(bool status) external onlyOwner {
 		useBurnRate = status;
 	}
 
-	function setIncludeDaoBurn(bool status) public onlyOwner {
+	function setIncludeDaoBurn(bool status) external onlyOwner {
 		includeDaoBurn = status;
 	}
 
@@ -254,7 +254,7 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 	}
 
 	// Claim LAMBO allocated to a MechaPunkx NFT
-	function claim(uint256 tokenId) public {
+	function claim(uint256 tokenId) external {
 		require(MechaPunkxNFT.ownerOf(tokenId) == msg.sender, "You do not own that MechaPunkx token ID");
 		uint256 canClaim = amountCanClaim(tokenId);
 
@@ -357,20 +357,20 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 		burnRateWeightSum = w0 + w1 + w2 + w3 + w4 + w5;
 	}
 
-	function emissionRatesLength() public view returns (uint256) {
+	function emissionRatesLength() external view returns (uint256) {
 		return emissionRates.length;
 	}
 
-	function emissionRateChangesLength() public view returns (uint256) {
+	function emissionRateChangesLength() external view returns (uint256) {
 		return emissionRateChanges.length;
 	}
 
-	function getClaimedAmount(uint256 tokenId) public view returns (uint256) {
+	function getClaimedAmount(uint256 tokenId) external view returns (uint256) {
 		return claimed[tokenId];
 	}
 
 	// TEST ONLY
-	function testUpdate(uint256 newRate) public {
+	function testUpdate(uint256 newRate) external {
 		emissionRateChanges.push(block.timestamp);
 		emissionRates.push(newRate);	
 	}
