@@ -1986,7 +1986,40 @@ contract('MechaPunkx', (accounts) => {
 			*/
 			// After many rate changes, see what claim cost is
 
-			
+			/*
+			// Attempt claim LAMBO with 20 NFT's yielding LAMBO (very high gas use), after N months or years passes
+			ownerBal = await contract.balanceOf(accounts[2]);
+			console.log("Num MPX by owner: ", ownerBal.toNumber());
+			await contract.seedAllowlist([accounts[2]], 15);
+			await contract.mintAllowlist({ from: accounts[2] });
+
+			ownerBal = await contract.balanceOf(accounts[2]);
+			console.log("Num MPX by owner: ", ownerBal.toNumber());
+			await passDaysMulti(500);
+			await contract.claimMechTokenAll({ from: accounts[2] });
+
+			let ts = await contract.tokensInWallet(accounts[2]);
+			for (let i=0; i<ts.length; i++) {
+				ownerBal = await mechToken.balanceOf(accounts[2]);
+				console.log("MECH before convert: ", ownerBal.toNumber());
+				let converted = await contract.yieldsLambo(ts[i]);
+				if (!converted) {
+					await contract.convertYieldToLambo(ts[i], { from: accounts[2] });
+				}
+			}
+
+			// Checking block gas limit for claim as array size grows
+			let nMonths = (12 * 12);
+			for (let i=0; i<nMonths; i++) {
+				await lamboContract.testUpdate(Math.floor(Math.random() * 49));
+				await passDaysMulti(Math.floor(Math.random() * 38));
+				mintResult = await lamboContract.claimAll({ from: accounts[2] });
+				console.log("RES: " + i.toString() + " -> ", i, mintResult.receipt.cumulativeGasUsed);
+				let eLen = await lamboContract.emissionRatesLength();
+				console.log("Length of updates array: ", eLen.toNumber());
+			}
+			*/
+						
 			// Test burning a yielding MechaPunkx (already tested above too)
 			await contract.convertYieldToLambo(5, { from: accounts[2] });
 			yieldsLambo = await contract.yieldsLambo(5, { from: accounts[2] });

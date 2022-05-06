@@ -235,12 +235,8 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 			uint256 rate = emissionRates[i];
 			uint256 rateChangeStart = emissionRateChanges[i];
 			uint256 rateChangeEnd;
-			if (i == n - 1) {
-				rateChangeEnd = current;
-			}
-			else {
-				rateChangeEnd = emissionRateChanges[i+1];
-			}
+			if (i == n - 1) rateChangeEnd = current;
+			else rateChangeEnd = emissionRateChanges[i+1];
 
 			// Only count intervals after the NFT started yielding
 			if (yieldStartTime < rateChangeEnd) { 
@@ -265,20 +261,72 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 		if (canClaim > 0) {
 			createdDuringInterval += canClaim;
 			claimed[tokenId] += canClaim;
-			address owner = MechaPunkxNFT.ownerOf(tokenId);
-			_mint(owner, canClaim);
+			_mint(msg.sender, canClaim);
 		}
 	}
 
+	// Gas optimized version for holders of multiple NFT's
 	function claimAll() external {
-		uint256[] memory tokens = MechaPunkxNFT.tokensInWallet(msg.sender);
-		for(uint256 i = 0; i < tokens.length; i++){
-			// No claim for NFT's still yielding MECH Token
-			if (MechaPunkxNFT.lamboYieldStartTime(tokens[i]) > 0) {
-				claim(tokens[i]);
+
+		address owner = msg.sender;
+		uint256 tokenCount = MechaPunkxNFT.balanceOf(owner);
+		uint256 current = block.timestamp;
+		uint256 n = emissionRateChanges.length;
+		uint256 nLambos;
+		uint256 sum;
+
+		uint256[] memory tokens = new uint256[](tokenCount);
+		uint256[] memory yieldStarts = new uint256[](tokenCount);
+
+		for(uint256 i = 0; i < tokenCount; i++){
+			uint256 t = MechaPunkxNFT.tokenOfOwnerByIndex(owner, i);
+			uint256 ys = MechaPunkxNFT.lamboYieldStartTime(t);
+			if (ys > 0) {
+				tokens[nLambos] = t;
+				yieldStarts[nLambos] = ys;
+				nLambos += 1;
 			}
 		}
+		
+		uint256[] memory canClaim = new uint256[](nLambos);
+
+		for (uint256 i = 0; i < n; i++) {
+			
+			uint256 rate = emissionRates[i];
+			uint256 rateChangeStart = emissionRateChanges[i];
+			uint256 rateChangeEnd;
+			if (i == n - 1) rateChangeEnd = current;
+			else rateChangeEnd = emissionRateChanges[i+1];
+
+			for(uint256 j = 0; j < nLambos; j++){
+
+				// Only count intervals after the NFT started yielding
+				uint256 ys = yieldStarts[j];
+				if (ys < rateChangeEnd) { 
+					uint256 start = rateChangeStart;
+					if (ys > start) start = ys;
+					canClaim[j] += ((rateChangeEnd - start) / 1 days) * rate;
+				}
+
+				// If sum is complete for the NFT
+				if (i == n - 1) {
+					uint256 tokenId = tokens[j];
+					canClaim[j] -= claimed[tokenId];
+					uint256 c = canClaim[j];
+					if (c > 0) {
+						claimed[tokenId] += c;
+						sum += c;
+					}
+				}
+			}
+		}
+
+		if (sum > 0) {
+			createdDuringInterval += sum;		
+			_mint(owner, sum);
+		}
 	}
+
 	
 	// Returns number of LAMBO yielded per day by a MechaPunkx NFT
 	function currentEmissionRate() public view returns (uint256) {
@@ -319,5 +367,11 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 
 	function getClaimedAmount(uint256 tokenId) public view returns (uint256) {
 		return claimed[tokenId];
+	}
+
+	// TEST ONLY
+	function testUpdate(uint256 newRate) public {
+		emissionRateChanges.push(block.timestamp);
+		emissionRates.push(newRate);	
 	}
 }
