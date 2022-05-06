@@ -24,7 +24,7 @@ contract MechaPunkx is ERC721, ERC721Enumerable, ERC721Burnable, Ownable, Reentr
 	string public baseTokenURI = "https://lambo.lol/metadata/mechapunkx/";
 	string public contractURI = "https://lambo.lol/mechapunkx/contract.json";
 
-	uint256 public MAX_MECHAPUNKX = 7848;
+	uint256 public constant MAX_MECHAPUNKX = 7848;
 	uint256 public saleRemaining = 200;
 	uint256 public numMinted = 0;
 
@@ -61,7 +61,7 @@ contract MechaPunkx is ERC721, ERC721Enumerable, ERC721Burnable, Ownable, Reentr
 		return day;
 	}
 
-	function mechTokenAddress() public view returns (address) {
+	function mechTokenAddress() external view returns (address) {
 		return address(mech);
 	}
 
@@ -71,7 +71,7 @@ contract MechaPunkx is ERC721, ERC721Enumerable, ERC721Burnable, Ownable, Reentr
 		mech.claim(tokenId);
 	}
 
-	function claimMechTokenAll() public {
+	function claimMechTokenAll() external {
 		uint256[] memory tokens = tokensInWallet(msg.sender);
 		for(uint256 i = 0; i < tokens.length; i++){
 			// Skip any NFT yielding LAMBO
@@ -91,7 +91,7 @@ contract MechaPunkx is ERC721, ERC721Enumerable, ERC721Burnable, Ownable, Reentr
 	}
 
 	// Mint NFT for whitelist, 200 spots
-	function mintAllowlist() public nonReentrant() {
+	function mintAllowlist() external nonReentrant() {
 		uint256 quantity = allowlist[msg.sender];
 		require(quantity > 0, "Not on list");
 		require(numMinted + quantity <= MAX_MECHAPUNKX, "All MechaPunkx claimed");
@@ -104,7 +104,7 @@ contract MechaPunkx is ERC721, ERC721Enumerable, ERC721Burnable, Ownable, Reentr
 	}
 
 	// Public Sale, 200 spots
-	function mintSale(uint256 quantity) public payable nonReentrant() {
+	function mintSale(uint256 quantity) external payable nonReentrant() {
 		require(quantity > 0 && quantity <= 20, "Between 1 and 21");
 		require(numMinted + quantity <= MAX_MECHAPUNKX, "Not enough remain");
 		require((0.1 ether * quantity) <= msg.value, "Eth value incorrect");
@@ -120,7 +120,7 @@ contract MechaPunkx is ERC721, ERC721Enumerable, ERC721Burnable, Ownable, Reentr
 	}
 
 	// Mint NFT by burning MECH
-	function mintNFT() public nonReentrant() {
+	function mintNFT() external nonReentrant() {
 		require(numMinted + 1 <= MAX_MECHAPUNKX, "All MechaPunkx claimed.");
 
 		if (useDailyLimit) {
@@ -183,7 +183,7 @@ contract MechaPunkx is ERC721, ERC721Enumerable, ERC721Burnable, Ownable, Reentr
 		emit LamboYield(tokenId);
 	}
 
-	function isOverDailyLimit() public view returns (bool) {
+	function isOverDailyLimit() external view returns (bool) {
 		if (useDailyLimit) {
 			// At most, 100 MechaPunkx per day can be minted (starting once 500 minted)
 			uint256 currentDay = mech.maxEarned();
@@ -236,7 +236,7 @@ contract MechaPunkx is ERC721, ERC721Enumerable, ERC721Burnable, Ownable, Reentr
 		return super.supportsInterface(interfaceId);
 	}
 
-	function withdraw() public onlyOwner {
+	function withdraw() external onlyOwner {
 		uint256 balance = address(this).balance;
 		payable(msg.sender).transfer(balance);
 	}
@@ -245,7 +245,7 @@ contract MechaPunkx is ERC721, ERC721Enumerable, ERC721Burnable, Ownable, Reentr
 		return baseTokenURI;
 	}
 
-	function setBaseURI(string memory baseURI) public onlyOwner {
+	function setBaseURI(string memory baseURI) external onlyOwner {
 		baseTokenURI = baseURI;
 	}
 }

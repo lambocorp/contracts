@@ -72,21 +72,21 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 	}
 
 	// Set the address where the DAO will receive a percentage of spent LAMBO
-	function setDAO(address _dao) public onlyOwner {
+	function setDAO(address _dao) external onlyOwner {
 		dao = _dao;   
 	}
 
 	// A percentage of all resources burned goes to the DAO, LAMBO being one resource
-	function setDAOPercentage(uint256 perc) public onlyLamboCorp {
+	function setDAOPercentage(uint256 perc) external onlyLamboCorp {
 		require(perc <= 100, "Must be less than 100");
 		daoPercentage = perc;
 	}
 
-	function setUseBurnRate(bool status) public onlyOwner {
+	function setUseBurnRate(bool status) external onlyOwner {
 		useBurnRate = status;
 	}
 
-	function setIncludeDaoBurn(bool status) public onlyOwner {
+	function setIncludeDaoBurn(bool status) external onlyOwner {
 		includeDaoBurn = status;
 	}
 
@@ -233,7 +233,7 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 	}
 
 	// Claim LAMBO allocated to a MechaPunkx NFT
-	function claim(uint256 tokenId) public {
+	function claim(uint256 tokenId) external {
 		require(MechaPunkxNFT.ownerOf(tokenId) == msg.sender, "You do not own that MechaPunkx token ID");
 		uint256 canClaim = amountCanClaim(tokenId);
 
@@ -244,13 +244,65 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 		}
 	}
 
+	// Gas optimized version for holders of multiple NFT's
 	function claimAll() external {
-		uint256[] memory tokens = MechaPunkxNFT.tokensInWallet(msg.sender);
-		for(uint256 i = 0; i < tokens.length; i++){
-			// No claim for NFT's still yielding MECH Token
-			if (MechaPunkxNFT.lamboYieldStartTime(tokens[i]) > 0) {
-				claim(tokens[i]);
+
+		address owner = msg.sender;
+		uint256 tokenCount = MechaPunkxNFT.balanceOf(owner);
+		uint256 current = block.timestamp;
+		uint256 n = emissionRateChanges.length;
+		uint256 nLambos;
+		uint256 sum;
+
+		uint256[] memory tokens = new uint256[](tokenCount);
+		uint256[] memory yieldStarts = new uint256[](tokenCount);
+
+		for(uint256 i = 0; i < tokenCount; i++){
+			uint256 t = MechaPunkxNFT.tokenOfOwnerByIndex(owner, i);
+			uint256 ys = MechaPunkxNFT.lamboYieldStartTime(t);
+			if (ys > 0) {
+				tokens[nLambos] = t;
+				yieldStarts[nLambos] = ys;
+				nLambos += 1;
 			}
+		}
+		
+		uint256[] memory canClaim = new uint256[](nLambos);
+
+		for (uint256 i = 0; i < n; i++) {
+			
+			uint256 rate = emissionRates[i];
+			uint256 rateChangeStart = emissionRateChanges[i];
+			uint256 rateChangeEnd;
+			if (i == n - 1) rateChangeEnd = current;
+			else rateChangeEnd = emissionRateChanges[i+1];
+
+			for(uint256 j = 0; j < nLambos; j++){
+
+				// Only count intervals after the NFT started yielding
+				uint256 ys = yieldStarts[j];
+				if (ys < rateChangeEnd) { 
+					uint256 start = rateChangeStart;
+					if (ys > start) start = ys;
+					canClaim[j] += ((rateChangeEnd - start) / 1 days) * rate;
+				}
+
+				// If sum is complete for the NFT
+				if (i == n - 1) {
+					uint256 tokenId = tokens[j];
+					canClaim[j] -= claimed[tokenId];
+					uint256 c = canClaim[j];
+					if (c > 0) {
+						claimed[tokenId] += c;
+						sum += c;
+					}
+				}
+			}
+		}
+
+		if (sum > 0) {
+			createdDuringInterval += sum;		
+			_mint(owner, sum);
 		}
 	}
 	
@@ -283,15 +335,15 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 		burnRateWeightSum = w0 + w1 + w2 + w3 + w4 + w5;
 	}
 
-	function emissionRatesLength() public view returns (uint256) {
+	function emissionRatesLength() external view returns (uint256) {
 		return emissionRates.length;
 	}
 
-	function emissionRateChangesLength() public view returns (uint256) {
+	function emissionRateChangesLength() external view returns (uint256) {
 		return emissionRateChanges.length;
 	}
 
-	function getClaimedAmount(uint256 tokenId) public view returns (uint256) {
+	function getClaimedAmount(uint256 tokenId) external view returns (uint256) {
 		return claimed[tokenId];
 	}
 }
