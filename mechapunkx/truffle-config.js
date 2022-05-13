@@ -17,10 +17,12 @@
  * phrase from a file you've .gitignored so it doesn't accidentally become public.
  *
  */
+require('dotenv').config();
+const mnemonic = process.env["MNEMONIC"];
+const infuraKey = process.env["INFURA_KEY"];
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
-// const infuraKey = "fj4jll3k.....";
-//
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
@@ -34,6 +36,9 @@ module.exports = {
 	 *
 	 * $ truffle test --network <network-name>
 	 */
+
+	contracts_build_directory: './build/arbitrum-contracts',
+	// contracts_directory: './contracts/arbitrum',
 
 	networks: {
 		// Useful for testing. The `development` name is special - truffle uses it by default
@@ -80,6 +85,32 @@ module.exports = {
 		//   network_id: "*" // Match any network id
 				//accounts: 5,
 				//    defaultEtherBalance: 500,
+		// },
+		// https://rinkeby.arbitrum.io/rpc
+		// ref: https://github.com/truffle-box/arbitrum-box/blob/main/truffle-config.arbitrum.js	
+		arbitrum_testnet: {
+			network_id: 421611,
+			accounts: 10,
+			provider: function() {
+				return new HDWalletProvider({
+					mnemonic: {
+						phrase: mnemonic
+					},
+					providerOrUrl: 'https://arbitrum-rinkeby.infura.io/v3/' + infuraKey,
+					addressIndex: 9, // lute
+					numberOfAddresses: 1,
+					network_id: 421611,
+					chainId: 421611
+				})
+			}
+		},
+
+		// arbitrum_mainnet: {
+		// 	network_id: 42161,
+		// 	chain_id: 42161,
+		// 	provider: function() {
+		// 		return new HDWalletProvider(mainnetMnemonic, "https://arbitrum-mainnet.infura.io/v3/" + infuraKey, 0, 1);
+		// 	}
 		// },
 	},
 

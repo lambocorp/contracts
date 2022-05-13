@@ -58,7 +58,7 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 	uint256 public burnModifierMin = 50; // At most, the rate can decrease 50% in one month
 	uint256 public burnModifierMax = 150; // At most, the rate can increase 50% in one month
 
-	constructor(address mAddress) ERC20("LAMBO Token", "LAMBO") { 
+	constructor(address mAddress) ERC20("LAMBO", "LAMBO") { 
 		MechaPunkxNFT = MechaPunkx(mAddress);
 	}
 
@@ -204,8 +204,8 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 		if (includeDaoBurn) burnDuringInterval += quantity;
 		else burnDuringInterval += remainder;
 		updateBurnRate();
-		if (toDao > 0) transferFrom(msg.sender, dao, toDao);
-		super._burn(msg.sender, remainder);
+		if (toDao > 0) transferFrom(msg.sender, dao, toDao * (10**18));
+		super._burn(msg.sender, remainder * (10**18));
 	}
 
 	function burnFrom(address addr, uint256 quantity) public override {
@@ -216,8 +216,8 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 		if (includeDaoBurn) burnDuringInterval += quantity;
 		else burnDuringInterval += remainder;
 		updateBurnRate();
-		if (toDao > 0) transferFrom(addr, dao, toDao);
-		super.burnFrom(addr, remainder);
+		if (toDao > 0) transferFrom(addr, dao, toDao * (10**18));
+		super.burnFrom(addr, remainder * (10**18));
 	}
 	
 	function amountCanClaim(uint256 tokenId) public view returns (uint256) {
@@ -261,7 +261,7 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 		if (canClaim > 0) {
 			createdDuringInterval += canClaim;
 			claimed[tokenId] += canClaim;
-			_mint(msg.sender, canClaim);
+			_mint(msg.sender, canClaim * (10**18));
 		}
 	}
 
@@ -323,7 +323,7 @@ contract Lambo is ERC20, ERC20Burnable, Ownable {
 
 		if (sum > 0) {
 			createdDuringInterval += sum;		
-			_mint(owner, sum);
+			_mint(owner, sum * (10**18));
 		}
 	}
 

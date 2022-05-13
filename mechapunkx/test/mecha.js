@@ -8,6 +8,19 @@ require('chai')
 	.use(require('chai-as-promised'))
 	.should()
 
+function getNum(bn) {
+	return bn.div(web3.utils.toBN(10).pow(web3.utils.toBN(18))).toNumber();
+}
+
+function getNumString(bn) {
+	return getNum(bn).toString();
+}
+
+// For making input parameter number -> big number string
+function getParamString(n) {
+	return web3.utils.toBN(n).mul(web3.utils.toBN(10).pow(web3.utils.toBN(18))).toString();
+}
+
 // https://www.trufflesuite.com/docs/truffle/getting-started/interacting-with-your-contracts
 /*
 contract('MechaPunkx', (accounts) => {
@@ -536,7 +549,7 @@ contract('MechaPunkx', (accounts) => {
 			assert.notEqual(address, null)
 			assert.notEqual(address, undefined)
 		})
-
+		/*
 		it('basic tests', async () => {
 			mechTokenAddress = await contract.mechTokenAddress();
 			console.log("Mech token address: ", mechTokenAddress);
@@ -546,6 +559,11 @@ contract('MechaPunkx', (accounts) => {
 
 			let initialMintCost = await contract.mintCost();
 			assert.equal(initialMintCost.toNumber(), 9);
+
+
+			console.log("Here's 0: ", accounts[0]);
+			console.log("Acct 1: ", accounts[1]);
+			// console.log("Acct 2: ", accounts[2]);
 
 			await contract.seedAllowlist([accounts[0], accounts[1]], 3);
 
@@ -561,7 +579,7 @@ contract('MechaPunkx', (accounts) => {
 			let ownerBal = await contract.balanceOf(accounts[0]);
 			assert.equal(ownerBal.toNumber(), 3, "Owner whitelist 3, and minted 3");
 		});
-		/*
+		
 		it('Can use allowlist', async () => {
 
 			mechTokenAddress = await contract.mechTokenAddress();
@@ -618,8 +636,8 @@ contract('MechaPunkx', (accounts) => {
 			t = await mechToken.startTime();
 
 			let tokenResult = await contract.claimMechTokenAll();
-			ownerBal = await mechToken.balanceOf(accounts[0]);
-			assert.isAbove(ownerBal.toNumber(), 0, "Account 0 has zero balance after claim and allowlist mint");
+			ownerBal = await mechToken.balanceOf(accounts[0]).then(res => getNum(res));
+			assert.isAbove(ownerBal, 0, "Account 0 has zero balance after claim and allowlist mint");
 
 		});
 
@@ -747,14 +765,14 @@ contract('MechaPunkx', (accounts) => {
 			tokenResult = await contract.claimMechTokenAll({ from: accounts[7] });
 			
 			// Check that balance of both accounts for Mech token is ZERO
-			ownerBal = await mechToken.balanceOf(accounts[0]);
-			assert.equal(ownerBal.toNumber(), 0, "Nonzero balance found before earning MECH Token");
-			ownerBal = await mechToken.balanceOf(accounts[1]);
-			assert.equal(ownerBal.toNumber(), 0, "Nonzero balance found before earning MECH Token");
-			ownerBal = await mechToken.balanceOf(accounts[2]);
-			assert.equal(ownerBal.toNumber(), 0, "Nonzero balance found before earning MECH Token");
-			ownerBal = await mechToken.balanceOf(accounts[7]);
-			assert.equal(ownerBal.toNumber(), 0, "Nonzero balance found before earning MECH Token");
+			ownerBal = await mechToken.balanceOf(accounts[0]).then(res => getNum(res));
+			assert.equal(ownerBal, 0, "Nonzero balance found before earning MECH Token");
+			ownerBal = await mechToken.balanceOf(accounts[1]).then(res => getNum(res));
+			assert.equal(ownerBal, 0, "Nonzero balance found before earning MECH Token");
+			ownerBal = await mechToken.balanceOf(accounts[2]).then(res => getNum(res));
+			assert.equal(ownerBal, 0, "Nonzero balance found before earning MECH Token");
+			ownerBal = await mechToken.balanceOf(accounts[7]).then(res => getNum(res));
+			assert.equal(ownerBal, 0, "Nonzero balance found before earning MECH Token");
 
 			// Step a few days forward, see if earning MECH works ok, claiming
 			// Step forward 3 days (by lowering start time)
@@ -768,11 +786,11 @@ contract('MechaPunkx', (accounts) => {
 
 			// Check no MECH claimed
 			tokenResult = await contract.claimMechTokenAll({ from: accounts[7] });
-			ownerBal = await mechToken.balanceOf(accounts[7]);
-			assert.equal(ownerBal.toNumber(), 0, "Nonzero balance found before earning MECH token");
+			ownerBal = await mechToken.balanceOf(accounts[7]).then(res => getNum(res));
+			assert.equal(ownerBal, 0, "Nonzero balance found before earning MECH token");
 
 			// Check MECH token total supply
-			totalSupply = await mechToken.totalSupply();
+			totalSupply = await mechToken.totalSupply().then(res => getNum(res));
 			assert.equal(totalSupply, 0, "MECH Token total supply should be zero");
 
 			// Pass a few more days
@@ -786,33 +804,33 @@ contract('MechaPunkx', (accounts) => {
 
 			// Try claim one token, then claim the rest
 			tokenResult = await contract.claimMechToken(4, { from: accounts[7] });
-			ownerBal = await mechToken.balanceOf(accounts[7]);
-			// assert.equal(ownerBal.toNumber(), 9, "Zero balance found after claiming MECH Token");
-			assert.isAbove(ownerBal.toNumber(), 0, "Zero balance found after claiming MECH Token");
-			console.log("ownerBal after first claim: ", ownerBal.toNumber());
+			ownerBal = await mechToken.balanceOf(accounts[7]).then(res => getNum(res));
+			// assert.equal(ownerBal, 9, "Zero balance found after claiming MECH Token");
+			assert.isAbove(ownerBal, 0, "Zero balance found after claiming MECH Token");
+			console.log("ownerBal after first claim: ", ownerBal);
 
 			// MECH total supply should be non-zero
-			totalSupply = await mechToken.totalSupply();
-			assert.isAbove(totalSupply.toNumber(), 0, "MECH Token total supply should be non-zero");
-			console.log("MECH Token total supply after single claim: ", totalSupply.toNumber());
+			totalSupply = await mechToken.totalSupply().then(res => getNum(res));
+			assert.isAbove(totalSupply, 0, "MECH Token total supply should be non-zero");
+			console.log("MECH Token total supply after single claim: ", totalSupply.toString());
 
 			// Repeat claim, balance should remained unchanged
 			let ownerBalBefore = ownerBal;
 			let totalSupplyBefore = totalSupply;
 			tokenResult = await contract.claimMechToken(4, { from: accounts[7] });
-			ownerBal = await mechToken.balanceOf(accounts[7]);
-			totalSupply = await mechToken.totalSupply();
-			assert.equal(ownerBal.toNumber(), ownerBalBefore.toNumber(), "MECH Token balance changed after repeat claim");
-			assert.equal(totalSupply.toNumber(), totalSupplyBefore.toNumber(), "MECH Token total supply changed after repeat claim");
+			ownerBal = await mechToken.balanceOf(accounts[7]).then(res => getNum(res));
+			totalSupply = await mechToken.totalSupply().then(res => getNum(res));
+			assert.equal(ownerBal, ownerBalBefore, "MECH Token balance changed after repeat claim");
+			assert.equal(totalSupply, totalSupplyBefore, "MECH Token total supply changed after repeat claim");
 
 			// Claim rest by accounts[7]
 			tokenResult = await contract.claimMechTokenAll({ from: accounts[7] });
-			ownerBal = await mechToken.balanceOf(accounts[7]);
-			totalSupply = await mechToken.totalSupply();
-			assert.isAbove(ownerBal.toNumber(), ownerBalBefore.toNumber(), "MECH Token balance did not change after claiming rest of tokens");
-			assert.isAbove(totalSupply.toNumber(), totalSupplyBefore.toNumber(), "MECH Token total supply did not change after claiming rest of tokens");
-			console.log("Owner balance after claiming all MECH token [acct 7]: ", ownerBal.toNumber());
-			console.log("Total sup MECH Token after all claims [acct 7]: ", totalSupply.toNumber());
+			ownerBal = await mechToken.balanceOf(accounts[7]).then(res => getNum(res));
+			totalSupply = await mechToken.totalSupply().then(res => getNum(res));
+			assert.isAbove(ownerBal, ownerBalBefore, "MECH Token balance did not change after claiming rest of tokens");
+			assert.isAbove(totalSupply, totalSupplyBefore, "MECH Token total supply did not change after claiming rest of tokens");
+			console.log("Owner balance after claiming all MECH token [acct 7]: ", ownerBal);
+			console.log("Total sup MECH Token after all claims [acct 7]: ", totalSupply);
 			// both 45
 
 			// Check max earned
@@ -839,25 +857,25 @@ contract('MechaPunkx', (accounts) => {
 			await contract.claimMechToken(0, { from: accounts[4] }).should.be.rejected;
 
 			// Other users should remain 0 balance
-			ownerBal = await mechToken.balanceOf(accounts[1]);
-			assert.equal(ownerBal.toNumber(), 0, "Account 1 has non-zero balance without claiming");
-			ownerBal = await mechToken.balanceOf(accounts[0]);
-			assert.equal(ownerBal.toNumber(), 0, "Account 0 has non-zero balance without claiming");
+			ownerBal = await mechToken.balanceOf(accounts[1]).then(res => getNum(res));
+			assert.equal(ownerBal, 0, "Account 1 has non-zero balance without claiming");
+			ownerBal = await mechToken.balanceOf(accounts[0]).then(res => getNum(res));
+			assert.equal(ownerBal, 0, "Account 0 has non-zero balance without claiming");
 			
 			// Pass 2 more days, no claim should happen
 			await passDays(2, t, day);
 			day += 2;
 			t = await mechToken.startTime();
 
-			ownerBalBefore = await mechToken.balanceOf(accounts[7]);
+			ownerBalBefore = await mechToken.balanceOf(accounts[7]).then(res => getNum(res));
 			tokenResult = await contract.claimMechTokenAll({ from: accounts[7] });
-			ownerBal = await mechToken.balanceOf(accounts[7]);
-			assert.equal(ownerBalBefore.toNumber(), ownerBal.toNumber(), "MECH Token balance changed after 2 more days, but shouldn't");
+			ownerBal = await mechToken.balanceOf(accounts[7]).then(res => getNum(res));
+			assert.equal(ownerBalBefore, ownerBal, "MECH Token balance changed after 2 more days, but shouldn't");
 
 
 			// Basic mint test, not full test
 
-			let totalSupplyTokens = await mechToken.totalSupply();
+			let totalSupplyTokens = await mechToken.totalSupply().then(res => getNum(res));
 			let totalSupplyNFT = await contract.totalSupply();
 			let ownerNFT = await contract.tokensInWallet(accounts[7], { from: accounts[7] });
 
@@ -866,7 +884,7 @@ contract('MechaPunkx', (accounts) => {
 			
 			// Can't mint without MECH token
 			// Approve MECH Token transfer from acct 6
-			await mechToken.approve(mechTokenAddress, 50000, { from: accounts[6] });
+			await mechToken.approve(mechTokenAddress, getParamString(50000), { from: accounts[6] });
 			// Has no approval and no MECH token
 			await contract.mintNFT({ from: accounts[0] }).should.be.rejected;
 			// Has approval, but no MECH token
@@ -893,26 +911,26 @@ contract('MechaPunkx', (accounts) => {
 			// console.log("Owner tokens before next mint: ", ots.toString());
 
 			// Test successful mint, w/ approve first			
-			await mechToken.approve(contract.address, 50000, { from: accounts[7] });
+			await mechToken.approve(contract.address, getParamString(50000), { from: accounts[7] });
 			mintResult = await contract.mintNFT({ from: accounts[7] });
 			// console.log("Newly minted token: ", mintResult.logs[0].tokenId.toNumber());
-			let totalSupplyTokensAfter = await mechToken.totalSupply();
+			let totalSupplyTokensAfter = await mechToken.totalSupply().then(res => getNum(res));
 			let totalSupplyNFTAfter = await contract.totalSupply();
 			let ownerNFTAfter = await contract.tokensInWallet(accounts[7], { from: accounts[7] });
-			assert.isBelow(Number(totalSupplyTokensAfter), Number(totalSupplyTokens), "MECH Tokens not burned after minting MechaPunkx");
+			assert.isBelow(totalSupplyTokensAfter, totalSupplyTokens, "MECH Tokens not burned after minting MechaPunkx");
 			assert.equal(Number(totalSupplyNFT) + 1, Number(totalSupplyNFTAfter), "Total supply of NFT did not increase by 1");
 			assert.equal(ownerNFT.length + 1, ownerNFTAfter.length, "Owner should own one more NFT after mint"); 
 			console.log("Total supply NFT after: ", totalSupplyNFTAfter.toNumber());
 
 			// See remaining MECH
-			ownerBal = await mechToken.balanceOf(accounts[7]);
-			console.log("MECH left over: ", ownerBal.toNumber());
+			ownerBal = await mechToken.balanceOf(accounts[7]).then(res => getNum(res));
+			console.log("MECH left over: ", ownerBal.toString());
 
 			// Owner has 33 tokens left, can mint 2 more
 			mintResult = await contract.mintNFT({ from: accounts[7] });
 			mintResult = await contract.mintNFT({ from: accounts[7] });
-			ownerBal = await mechToken.balanceOf(accounts[7]);
-			console.log("Minted two more, MECH left over: ", ownerBal.toNumber());
+			ownerBal = await mechToken.balanceOf(accounts[7]).then(res => getNum(res));
+			console.log("Minted two more, MECH left over: ", ownerBal.toString());
 
 			// Mint should fail, not enough MECH available
 			await contract.mintNFT({ from: accounts[7] }).should.be.rejected;
@@ -921,7 +939,7 @@ contract('MechaPunkx', (accounts) => {
 
 			// Quick test, can burn NFT (more burn testing at end)
 			// Can't burn token you don't own
-			let mechTokenBalBefore = await mechToken.balanceOf(accounts[7]);
+			let mechTokenBalBefore = await mechToken.balanceOf(accounts[7]).then(res => getNum(res));
 			await contract.burn(0).should.be.rejected;
 			await contract.burn(0, { from: accounts[7] }).should.be.rejected;
 			let burnResult = await contract.burn(6, { from: accounts[7] });
@@ -934,29 +952,29 @@ contract('MechaPunkx', (accounts) => {
 			// Test we do not have the token anymore
 			await contract.ownerOf(6).should.be.rejected;
 			// Test that we get back some MECH token
-			let mechTokenBalAfter = await mechToken.balanceOf(accounts[7]);
-			assert.isAbove(mechTokenBalAfter.toNumber(), mechTokenBalBefore.toNumber(), "Did not earn back some MECH from burning NFT");
-			console.log("Mech token bal before/after burning: ", mechTokenBalBefore.toNumber(), mechTokenBalAfter.toNumber());
+			let mechTokenBalAfter = await mechToken.balanceOf(accounts[7]).then(res => getNum(res));
+			assert.isAbove(mechTokenBalAfter, mechTokenBalBefore, "Did not earn back some MECH from burning NFT");
+			console.log("Mech token bal before/after burning: ", mechTokenBalBefore.toString(), mechTokenBalAfter.toString());
 					
 
 			// Check newly claimed token has MECH Token balance after 10 days
-			mechTokenBalBefore = await mechToken.balanceOf(accounts[7]);
+			mechTokenBalBefore = await mechToken.balanceOf(accounts[7]).then(res => getNum(res));
 			let ownerTokens = await contract.tokensInWallet(accounts[7]);
 			console.log("Tokens of owner: ", ownerTokens.toString()); // Tokens of owner:  4,5,11,7,8,9,10
 			
 			await contract.claimMechToken(9).should.be.rejected;
 			await contract.claimMechToken(9, { from: accounts[7] });
-			ownerBal = await mechToken.balanceOf(accounts[7]);
-			assert.equal((ownerBal.toNumber() - mechTokenBalBefore), 0, "MECH was claimed for token when claimable should be zero");
+			ownerBal = await mechToken.balanceOf(accounts[7]).then(res => getNum(res));
+			assert.equal((ownerBal - mechTokenBalBefore), 0, "MECH was claimed for token when claimable should be zero");
 			await passDays(10, t, day);
 			day += 10;
 			t = await mechToken.startTime();
 
 			await contract.claimMechToken(9, { from: accounts[7] });
-			ownerBal = await mechToken.balanceOf(accounts[7]);
-			assert.isAbove(ownerBal.toNumber() - mechTokenBalBefore, 5, "Did not earn claimable mech");
-			assert.isBelow(ownerBal.toNumber() - mechTokenBalBefore, 15, "Did not earn claimable mech");
-			console.log("Account 7 has MECH: ", ownerBal.toNumber()); // 23
+			ownerBal = await mechToken.balanceOf(accounts[7]).then(res => getNum(res));
+			assert.isAbove(ownerBal - mechTokenBalBefore, 5, "Did not earn claimable mech");
+			assert.isBelow(ownerBal - mechTokenBalBefore, 15, "Did not earn claimable mech");
+			console.log("Account 7 has MECH: ", ownerBal.toString()); // 23
 
 			mintCost = await contract.mintCost();
 			console.log("Mint cost at day ", day, mintCost.toNumber());
@@ -964,18 +982,18 @@ contract('MechaPunkx', (accounts) => {
 
 			// Transfer some mech to a new account
 			// Make sure starting with 0 MECH
-			ownerBal = await mechToken.balanceOf(accounts[8]);
-			assert.equal(ownerBal.toNumber(), 0, "New account 8 had nonzero balance of MECH");
+			ownerBal = await mechToken.balanceOf(accounts[8]).then(res => getNum(res));
+			assert.equal(ownerBal, 0, "New account 8 had nonzero balance of MECH");
 			// Make sure no MechaPunkx
 			ownerBal = await contract.balanceOf(accounts[8]);
 			assert.equal(ownerBal.toNumber(), 0, "New account 8 had nonzero balance of MechaPunkx");
 
 			// Transfer MECH
-			await mechToken.transfer(accounts[8], 22, { from: accounts[7] });
+			await mechToken.transfer(accounts[8], getParamString(22), { from: accounts[7] });
 
 			// nonZero balance
-			ownerBal = await mechToken.balanceOf(accounts[8]);
-			assert.isAbove(ownerBal.toNumber(), 0, "MECH not received by new account");
+			ownerBal = await mechToken.balanceOf(accounts[8]).then(res => getNum(res));
+			assert.isAbove(ownerBal, 0, "MECH not received by new account");
 			ownerBalBefore = ownerBal;
 
 			// Give account 7 a new NFT
@@ -997,21 +1015,21 @@ contract('MechaPunkx', (accounts) => {
 
 			// After 10 days, make sure they can mint, and they earn mech
 			await contract.claimMechTokenAll({ from: accounts[8] });
-			ownerBal = await mechToken.balanceOf(accounts[8]);
-			assert.isAbove(ownerBal.toNumber(), ownerBalBefore.toNumber(), "New account 8 MECH balance did not increase");
-			console.log("New account 8 earned MECH: ", ownerBal.toNumber()); // 22 transferred + 10 earned = 32 
+			ownerBal = await mechToken.balanceOf(accounts[8]).then(res => getNum(res));
+			assert.isAbove(ownerBal, ownerBalBefore, "New account 8 MECH balance did not increase");
+			console.log("New account 8 earned MECH: ", ownerBal.toString()); // 22 transferred + 10 earned = 32 
 
 			// New account can mint new MechaPunkx
 			mintCost = await contract.mintCost();
 			console.log("Mint cost at day: ", day, mintCost.toNumber()); // 32
-			let totalSuppyBefore = await mechToken.totalSupply();
+			let totalSuppyBefore = await mechToken.totalSupply().then(res => getNum(res));
 			await contract.mintNFT({ from: accounts[8] }).should.be.rejected;
-			await mechToken.approve(contract.address, 50000, { from: accounts[8] });
+			await mechToken.approve(contract.address, getParamString(50000), { from: accounts[8] });
 			await contract.mintNFT({ from: accounts[8] });
 			ownerBal = await contract.balanceOf(accounts[8]);
 			assert.equal(ownerBal.toNumber(), 2, "New account 8 did not have MechaPunkx after mint");
-			let totalSupplyAfter = await mechToken.totalSupply();
-			assert.equal((totalSuppyBefore.toNumber() - 32), totalSupplyAfter.toNumber(), "32 MECH not burned after mint");
+			let totalSupplyAfter = await mechToken.totalSupply().then(res => getNum(res));
+			assert.equal((totalSuppyBefore - 32), totalSupplyAfter, "32 MECH not burned after mint");
 			ownerBal = await mechToken.balanceOf(accounts[8]);
 			console.log("Mech balance of account 8 after mint: ", ownerBal.toNumber());
 			// No mint if not enough MECH token
@@ -1036,8 +1054,8 @@ contract('MechaPunkx', (accounts) => {
 			t = await mechToken.startTime();
 
 			await contract.claimMechTokenAll({ from: accounts[9] });
-			ownerBal = await mechToken.balanceOf(accounts[9]);
-			assert.isAbove(ownerBal.toNumber(), 0, "Account 9 did not earn MECH token after 10 days from transferred NFT");
+			ownerBal = await mechToken.balanceOf(accounts[9]).then(res => getNum(res));
+			assert.isAbove(ownerBal, 0, "Account 9 did not earn MECH token after 10 days from transferred NFT");
 
 			// Test burn NFT
 			totalSupply = await contract.totalSupply();
@@ -1048,34 +1066,35 @@ contract('MechaPunkx', (accounts) => {
 			// Test we do not have the token anymore
 			await contract.ownerOf(tokenId).should.be.rejected;
 			// Test that we get back some MECH token
-			mechTokenBalAfter = await mechToken.balanceOf(accounts[9]);
-			assert.isAbove(mechTokenBalAfter.toNumber(), ownerBal.toNumber(), "Did not get MECH back after burn");
-			console.log("Mech bal before/after burning: ", ownerBal.toNumber(), mechTokenBalAfter.toNumber());
+			mechTokenBalAfter = await mechToken.balanceOf(accounts[9]).then(res => getNum(res));
+			assert.isAbove(mechTokenBalAfter, ownerBal, "Did not get MECH back after burn");
+			console.log("Mech bal before/after burning: ", ownerBal.toString(), mechTokenBalAfter.toString());
 			totalSupplyAfter = await contract.totalSupply();
 			assert.equal(totalSupply.toNumber() - 1, totalSupplyAfter.toNumber(), "NFT total supply not reduced after burn");
 
 			// Test can mint after burn
 			mintCost = await contract.mintCost();
 			console.log("Mint cost after burn: ", mintCost.toNumber());
-			ownerBal = await mechToken.balanceOf(accounts[7]);
-			console.log("Balance of account 7: ", ownerBal.toNumber());
+			ownerBal = await mechToken.balanceOf(accounts[7]).then(res => getNum(res));
+			console.log("Balance of account 7: ", ownerBal.toString());
 			await contract.claimMechTokenAll({ from: accounts[7] });
-			console.log("Balance of account 7 after: ", ownerBal.toNumber());
+			ownerBal = await mechToken.balanceOf(accounts[7]).then(res => getNum(res));
+			console.log("Balance of account 7 after: ", ownerBal.toString());
 			
 			await contract.claimMechTokenAll({ from: accounts[5] });
-			ownerBal = await mechToken.balanceOf(accounts[5]);
-			console.log("Balance of account 5: ", ownerBal.toNumber());
+			ownerBal = await mechToken.balanceOf(accounts[5]).then(res => getNum(res));
+			console.log("Balance of account 5: ", ownerBal.toString());
 			ownerBal = await contract.tokensInWallet(accounts[5]);
 			console.log("Mech tokens by account 5: ", ownerBal.length);
 
-			await mechToken.transfer(accounts[9], 40, { from: accounts[7] });
-			// await mechToken.transfer(accounts[9], 40, { from: accounts[5] });
+			await mechToken.transfer(accounts[9], getParamString(40), { from: accounts[7] });
+			// await mechToken.transfer(accounts[9], getParamString(40), { from: accounts[5] });
 
-			ownerBal = await mechToken.balanceOf(accounts[9]);
+			ownerBal = await mechToken.balanceOf(accounts[9]).then(res => getNum(res));
 			ownerTokens = await contract.tokensInWallet(accounts[9]);
-			console.log("Account 9 balance after: ", ownerBal.toNumber());
+			console.log("Account 9 balance after: ", ownerBal.toString());
 			await contract.mintNFT({ from: accounts[9] }).should.be.rejected; // No approval to spend MECH token
-			await mechToken.approve(contract.address, 50000, { from: accounts[9] });
+			await mechToken.approve(contract.address, getParamString(50000), { from: accounts[9] });
 			await contract.mintNFT({ from: accounts[9] });
 			ownerTokensBefore = ownerTokens;
 			ownerTokens = await contract.tokensInWallet(accounts[9]);
@@ -1177,7 +1196,6 @@ contract('MechaPunkx', (accounts) => {
 			mintCost = await contract.mintCost();
 			assert.equal(mintCost.toNumber(), 100, "At day 152, mint cost should be 100.");	
 
-			
 		});
 		*/
 		
@@ -1296,29 +1314,29 @@ contract('MechaPunkx', (accounts) => {
 			await contract.claimMechTokenAll({ from: accounts[1] });
 			await contract.claimMechTokenAll({ from: accounts[2] });
 			await contract.claimMechTokenAll({ from: accounts[3] });
-			ownerBal = await mechToken.balanceOf(accounts[1]);
-			console.log("MECH account 1: ", ownerBal.toNumber());
-			assert.isAbove(ownerBal.toNumber(), 0, "No MECH earned."); // 60
-			ownerBal = await mechToken.balanceOf(accounts[2]);
-			console.log("MECH account 2: ", ownerBal.toNumber());
-			assert.isAbove(ownerBal.toNumber(), 0, "No MECH earned."); // 150
-			ownerBal = await mechToken.balanceOf(accounts[3]);
-			console.log("MECH account 3: ", ownerBal.toNumber());
-			assert.isAbove(ownerBal.toNumber(), 0, "No MECH earned."); // 30
+			ownerBal = await mechToken.balanceOf(accounts[1]).then(res => getNum(res));
+			console.log("MECH account 1: ", ownerBal.toString());
+			assert.equal(ownerBal, 60, "No MECH earned."); // 60
+			ownerBal = await mechToken.balanceOf(accounts[2]).then(res => getNum(res));
+			console.log("MECH account 2: ", ownerBal.toString());
+			assert.equal(ownerBal, 150, "No MECH earned."); // 150
+			ownerBal = await mechToken.balanceOf(accounts[3]).then(res => getNum(res));
+			console.log("MECH account 3: ", ownerBal.toString());
+			assert.equal(ownerBal, 30, "No MECH earned."); // 30
 
 			// Need at least 50 MECH to convert
-			assert.isBelow(ownerBal.toNumber(), 50, "Accounts[3] has over 50 MECH balance");
+			assert.isBelow(ownerBal, 50, "Accounts[3] has over 50 MECH balance");
 			let tokensOwned = await contract.tokensInWallet(accounts[3], { from: accounts[3] });
 			assert.equal(tokensOwned[0], 7, "Accounts 3 had a different tokenId than 7");
 			await contract.convertYieldToLambo(7, { from: accounts[3] }).should.be.rejected;
 
 			// Accounts[1] should have successful conversion, although zero return since no time passed
-			await mechToken.approve(contract.address, 50000, { from: accounts[1] });
+			await mechToken.approve(contract.address, getParamString(50000), { from: accounts[1] });
 			await contract.convertYieldToLambo(0, { from: accounts[1] });
 			let yieldsLambo = await contract.yieldsLambo(0);
 			assert.equal(yieldsLambo, true);
-			ownerBal = await mechToken.balanceOf(accounts[1]);
-			assert.isBelow(ownerBal.toNumber(), 50, "Accounts[1] should have balance under 50 after convert yield");
+			ownerBal = await mechToken.balanceOf(accounts[1]).then(res => getNum(res));
+			assert.isBelow(ownerBal, 50, "Accounts[1] should have balance under 50 after convert yield");
 			// Cannot convert again
 			await contract.convertYieldToLambo(0, { from: accounts[1] }).should.be.rejected;
 			// Cannot claim MECH for converted NFT
@@ -1329,17 +1347,17 @@ contract('MechaPunkx', (accounts) => {
 			// Accounts[3] has 1 regular (30 MECH ish)
 
 			// Accounts[2] convert two to LAMBO
-			await mechToken.approve(contract.address, 50000, { from: accounts[2] });
+			await mechToken.approve(contract.address, getParamString(50000), { from: accounts[2] });
 			await contract.convertYieldToLambo(2, { from: accounts[2] });
 			await contract.convertYieldToLambo(3, { from: accounts[2] });
 
-			ownerBal = await lamboContract.balanceOf(accounts[2]);
-			assert.equal(ownerBal.toNumber(), 0, "Accounts[2] should have no LAMBO before any claim");
+			ownerBal = await lamboContract.balanceOf(accounts[2]).then(res => getNum(res));
+			assert.equal(ownerBal, 0, "Accounts[2] should have no LAMBO before any claim");
 
 			// Can claim multiple, although zero balance
 			await lamboContract.claimAll({ from: accounts[2] });
-			ownerBal = await lamboContract.balanceOf(accounts[2]);
-			assert.equal(ownerBal.toNumber(), 0, "Accounts[2] should have no LAMBO");
+			ownerBal = await lamboContract.balanceOf(accounts[2]).then(res => getNum(res));
+			assert.equal(ownerBal, 0, "Accounts[2] should have no LAMBO");
 
 			// Accounts[1] has 1 regular, 1 converted (10 MECH ish)
 			// Accounts[2] has 3 regular, 2 converted (50 MECH ish)
@@ -1351,15 +1369,15 @@ contract('MechaPunkx', (accounts) => {
 			await contract.claimMechTokenAll({ from: accounts[1] });
 			await contract.claimMechTokenAll({ from: accounts[2] }); 
 			await contract.claimMechTokenAll({ from: accounts[3] });
-			ownerBal = await mechToken.balanceOf(accounts[1]);
-			console.log("MECH account 1: ", ownerBal.toNumber()); // 40
-			assert.isAbove(ownerBal.toNumber(), 39, "No MECH earned.");
-			ownerBal = await mechToken.balanceOf(accounts[2]); // 140
-			console.log("MECH account 2: ", ownerBal.toNumber());
-			assert.isAbove(ownerBal.toNumber(), 139, "No MECH earned.");
-			ownerBal = await mechToken.balanceOf(accounts[3]); // 60
-			console.log("MECH account 3: ", ownerBal.toNumber());
-			assert.isAbove(ownerBal.toNumber(), 59, "No MECH earned.");
+			ownerBal = await mechToken.balanceOf(accounts[1]).then(res => getNum(res));
+			console.log("MECH account 1: ", ownerBal.toString()); // 40
+			assert.equal(ownerBal, 40, "No MECH earned.");
+			ownerBal = await mechToken.balanceOf(accounts[2]).then(res => getNum(res)); // 140
+			console.log("MECH account 2: ", ownerBal.toString());
+			assert.equal(ownerBal, 140, "No MECH earned.");
+			ownerBal = await mechToken.balanceOf(accounts[3]).then(res => getNum(res)); // 60
+			console.log("MECH account 3: ", ownerBal.toString());
+			assert.equal(ownerBal, 60, "No MECH earned.");
 
 			// Mint an NFT with MECH
 			await contract.mintNFT({ from: accounts[2] });
@@ -1372,20 +1390,20 @@ contract('MechaPunkx', (accounts) => {
 
 			// Can claim LAMBO 
 			await lamboContract.claimAll({ from: accounts[1] });
-			ownerBal = await lamboContract.balanceOf(accounts[1]);
-			assert.isAbove(ownerBal.toNumber(), 0, "Accounts[1] did not earn LAMBO after 30 days");
+			ownerBal = await lamboContract.balanceOf(accounts[1]).then(res => getNum(res));
+			assert.isAbove(ownerBal, 0, "Accounts[1] did not earn LAMBO after 30 days");
 
 			// Can claim LAMBO in separate calls, and while also earning MECH
 			await lamboContract.claim(2, { from: accounts[2] });
-			ownerBal = await lamboContract.balanceOf(accounts[2]);
+			ownerBal = await lamboContract.balanceOf(accounts[2]).then(res => getNum(res));
 			let ownerBalBefore = ownerBal;
-			console.log("Accounts[2] earned LAMBO from one claim: ", ownerBal.toNumber()); // 300
-			assert.equal(ownerBal.toNumber(), 300, "LAMBO balance should be 300");
+			console.log("Accounts[2] earned LAMBO from one claim: ", ownerBal); // 300
+			assert.equal(ownerBal, 300, "LAMBO balance should be 300");
 			await lamboContract.claimAll( { from: accounts[2] });
-			ownerBal = await lamboContract.balanceOf(accounts[2]);
-			console.log("Accounts[2] earned LAMBO from all claims: ", ownerBal.toNumber()); // 600
-			assert.isAbove(ownerBal.toNumber(), ownerBalBefore.toNumber(), "LAMBO balance did not increase after remaining calls");
-			assert.equal(ownerBal.toNumber(), 600, "LAMBO balance should be 600");
+			ownerBal = await lamboContract.balanceOf(accounts[2]).then(res => getNum(res));
+			console.log("Accounts[2] earned LAMBO from all claims: ", ownerBal.toString()); // 600
+			assert.isAbove(ownerBal, ownerBalBefore, "LAMBO balance did not increase after remaining calls");
+			assert.equal(ownerBal, 600, "LAMBO balance should be 600");
 
 			// Burn NFT (non-yielding)
 			yieldsLambo = await contract.yieldsLambo(4, { from: accounts[2] });
@@ -1421,48 +1439,48 @@ contract('MechaPunkx', (accounts) => {
 			// Accounts[3] LAMBO before/after:  0  ->  0
 
 			// Account 1
-			ownerBalBefore = await mechToken.balanceOf(accounts[1]);
+			ownerBalBefore = await mechToken.balanceOf(accounts[1]).then(res => getNum(res));
 			await contract.claimMechTokenAll({ from: accounts[1] });
-			ownerBal = await mechToken.balanceOf(accounts[1]);
-			console.log("Accounts[1] MECH before/after: ", ownerBalBefore.toNumber(), " -> ", ownerBal.toNumber());
-			assert.isAbove(ownerBal.toNumber(), ownerBalBefore.toNumber(), "Did not earn MECH token");
+			ownerBal = await mechToken.balanceOf(accounts[1]).then(res => getNum(res));
+			console.log("Accounts[1] MECH before/after: ", ownerBalBefore.toString(), " -> ", ownerBal.toString());
+			assert.isAbove(ownerBal, ownerBalBefore, "Did not earn MECH token");
 			assert.equal(ownerBal - ownerBalBefore, 15, "Did not earn 15 MECH");
 
-			ownerBalBefore = await lamboContract.balanceOf(accounts[1]);
+			ownerBalBefore = await lamboContract.balanceOf(accounts[1]).then(res => getNum(res));
 			await lamboContract.claimAll({ from: accounts[1] });
-			ownerBal = await lamboContract.balanceOf(accounts[1]);
-			console.log("Accounts[1] LAMBO before/after: ", ownerBalBefore.toNumber(), " -> ", ownerBal.toNumber());
-			assert.isAbove(ownerBal.toNumber(), ownerBalBefore.toNumber(), "Did not earn LAMBO token");
+			ownerBal = await lamboContract.balanceOf(accounts[1]).then(res => getNum(res));
+			console.log("Accounts[1] LAMBO before/after: ", ownerBalBefore.toString(), " -> ", ownerBal.toString());
+			assert.isAbove(ownerBal, ownerBalBefore, "Did not earn LAMBO token");
 			assert.equal((ownerBal - ownerBalBefore), 150, "Did not earn 150 LAMBO");
 
 			// Account 2
-			ownerBalBefore = await mechToken.balanceOf(accounts[2]);
+			ownerBalBefore = await mechToken.balanceOf(accounts[2]).then(res => getNum(res));
 			await contract.claimMechTokenAll({ from: accounts[2] });
-			ownerBal = await mechToken.balanceOf(accounts[2]);
-			console.log("Accounts[2] MECH before/after: ", ownerBalBefore.toNumber(), " -> ", ownerBal.toNumber());
-			assert.isAbove(ownerBal.toNumber(), ownerBalBefore.toNumber(), "Did not earn MECH token");
+			ownerBal = await mechToken.balanceOf(accounts[2]).then(res => getNum(res));
+			console.log("Accounts[2] MECH before/after: ", ownerBalBefore.toString(), " -> ", ownerBal.toString());
+			assert.isAbove(ownerBal, ownerBalBefore, "Did not earn MECH token");
 			assert.equal((ownerBal - ownerBalBefore), 45, "Did not earn 45 MECH");
 
-			ownerBalBefore = await lamboContract.balanceOf(accounts[2]);
+			ownerBalBefore = await lamboContract.balanceOf(accounts[2]).then(res => getNum(res));
 			let claimResult = await lamboContract.claimAll({ from: accounts[2] });
 			// console.log("Claim result: ", claimResult); // cumulativeGasUsed: 112865
-			ownerBal = await lamboContract.balanceOf(accounts[2]);
-			console.log("Accounts[2] LAMBO before/after: ", ownerBalBefore.toNumber(), " -> ", ownerBal.toNumber());
-			assert.isAbove(ownerBal.toNumber(), ownerBalBefore.toNumber(), "Did not earn LAMBO token");
+			ownerBal = await lamboContract.balanceOf(accounts[2]).then(res => getNum(res));
+			console.log("Accounts[2] LAMBO before/after: ", ownerBalBefore.toString(), " -> ", ownerBal.toString());
+			assert.isAbove(ownerBal, ownerBalBefore, "Did not earn LAMBO token");
 			assert.equal((ownerBal - ownerBalBefore), 150, "Did not earn 150 LAMBO");
 
 			// Account 3
-			ownerBalBefore = await mechToken.balanceOf(accounts[3]);
+			ownerBalBefore = await mechToken.balanceOf(accounts[3]).then(res => getNum(res));
 			await contract.claimMechTokenAll({ from: accounts[3] });
-			ownerBal = await mechToken.balanceOf(accounts[3]);
-			console.log("Accounts[3] MECH before/after: ", ownerBalBefore.toNumber(), " -> ", ownerBal.toNumber());
-			assert.isAbove(ownerBal.toNumber(), ownerBalBefore.toNumber(), "Did not earn MECH token");
+			ownerBal = await mechToken.balanceOf(accounts[3]).then(res => getNum(res));
+			console.log("Accounts[3] MECH before/after: ", ownerBalBefore.toString(), " -> ", ownerBal.toString());
+			assert.isAbove(ownerBal, ownerBalBefore, "Did not earn MECH token");
 
-			ownerBalBefore = await lamboContract.balanceOf(accounts[3]);
+			ownerBalBefore = await lamboContract.balanceOf(accounts[3]).then(res => getNum(res));
 			await lamboContract.claimAll({ from: accounts[3] });
-			ownerBal = await lamboContract.balanceOf(accounts[3]);
-			console.log("Accounts[3] LAMBO before/after: ", ownerBalBefore.toNumber(), " -> ", ownerBal.toNumber());
-			assert.equal(ownerBal.toNumber(), ownerBalBefore.toNumber(), "Accounts[3] should not have changed LAMBO balance");
+			ownerBal = await lamboContract.balanceOf(accounts[3]).then(res => getNum(res));
+			console.log("Accounts[3] LAMBO before/after: ", ownerBalBefore.toString(), " -> ", ownerBal.toString());
+			assert.equal(ownerBal, ownerBalBefore, "Accounts[3] should not have changed LAMBO balance");
 			
 			// Mint another NFT with MECH
 			await contract.mintNFT({ from: accounts[2] });
@@ -1476,8 +1494,8 @@ contract('MechaPunkx', (accounts) => {
 			// Set the DAO address
 			await lamboContract.setDAO(accounts[9]);
 			// DAO starts with no LAMBO
-			ownerBal = await lamboContract.balanceOf(accounts[9]);
-			assert.equal(ownerBal.toNumber(), 0, "Accounts[9] should have 0 LAMBO");
+			ownerBal = await lamboContract.balanceOf(accounts[9]).then(res => getNum(res));
+			assert.equal(ownerBal, 0, "Accounts[9] should have 0 LAMBO");
 			
 			// Can't burn without balance
 			await lamboContract.burn(1, { from: accounts[9] }).should.be.rejected;
@@ -1486,12 +1504,12 @@ contract('MechaPunkx', (accounts) => {
 			// Can't burn without auth
 			await lamboContract.burnFrom(accounts[2], 10, { from: accounts[3] }).should.be.rejected;
 			// Successful burn, requires approval
-			ownerBalBefore = await lamboContract.balanceOf(accounts[2]);
+			ownerBalBefore = await lamboContract.balanceOf(accounts[2]).then(res => getNum(res));
 			
 			// Don't understand why this is needed
 			// ****
-			let totalSupplyBefore = await lamboContract.totalSupply();
-			await lamboContract.approve(accounts[2], 5000000, { from: accounts[2] });
+			let totalSupplyBefore = await lamboContract.totalSupply().then(res => getNum(res));
+			await lamboContract.approve(accounts[2], getParamString(5000000), { from: accounts[2] });
 			let burnResult = await lamboContract.burn(10, { from: accounts[2], gas: 800000 }); // , gasPrice: 500000000 
 			// burnResult.receipt.cumulativeGasUsed // 206220
 			// console.log("Burn result: ", burnResult);
@@ -1504,45 +1522,45 @@ contract('MechaPunkx', (accounts) => {
 			// could also just give DAO a claimable balance that gets incremented, 
 			// and then they pull the claim instead of transfer every fraction burnt (transfer is only 30k though)
 			
-			let totalSupplyAfter = await lamboContract.totalSupply();
-			assert.isBelow(totalSupplyAfter.toNumber(), totalSupplyBefore.toNumber(), "Total supply did not decrease after burn");
-			ownerBal = await lamboContract.balanceOf(accounts[2]);
-			console.log("Accounts[2] before LAMBO burn, LAMBO: ", ownerBalBefore.toNumber());
-			console.log("Accounts[2] after LAMBO burn, LAMBO: ", ownerBal.toNumber());
-			assert.equal(ownerBal.toNumber(), ownerBalBefore - 10, "Accounts[9] did not lose LAMBO after burn");
+			let totalSupplyAfter = await lamboContract.totalSupply().then(res => getNum(res));
+			assert.isBelow(totalSupplyAfter, totalSupplyBefore, "Total supply did not decrease after burn");
+			ownerBal = await lamboContract.balanceOf(accounts[2]).then(res => getNum(res));
+			console.log("Accounts[2] before LAMBO burn, LAMBO: ", ownerBalBefore.toString());
+			console.log("Accounts[2] after LAMBO burn, LAMBO: ", ownerBal.toString());
+			assert.equal(ownerBal, ownerBalBefore - 10, "Accounts[9] did not lose LAMBO after burn");
 
 			// Test DAO receives burned LAMBO
-			ownerBal = await lamboContract.balanceOf(accounts[9]);
-			assert.isAbove(ownerBal.toNumber(), 0, "Accounts[9] did not receive DAO LAMBO");
-			console.log("DAO received LAMBO: ", ownerBal.toNumber());
-			assert.equal(ownerBal.toNumber(), 3, "DAO received less than 30%");
-			console.log("DAO LAMBO: ", ownerBal.toNumber());
+			ownerBal = await lamboContract.balanceOf(accounts[9]).then(res => getNum(res));
+			assert.isAbove(ownerBal, 0, "Accounts[9] did not receive DAO LAMBO");
+			console.log("DAO received LAMBO: ", ownerBal.toString());
+			assert.equal(ownerBal, 3, "DAO received less than 30%");
+			console.log("DAO LAMBO: ", ownerBal.toString());
 
 			// Test DAO can send LAMBO
-			await lamboContract.transfer(accounts[8], 1, { from: accounts[9] });
+			await lamboContract.transfer(accounts[8], getParamString(1), { from: accounts[9] });
 			// Test new account received and can send
-			ownerBal = await lamboContract.balanceOf(accounts[8]);
-			assert.equal(ownerBal.toNumber(), 1, "Accounts[8] did not receive transferred 1 LAMBO");
-			await lamboContract.transfer(accounts[7], 1, { from: accounts[8] });
-			ownerBal = await lamboContract.balanceOf(accounts[7]);
-			assert.equal(ownerBal.toNumber(), 1, "Accounts[7] did not receive transferred 1 LAMBO");
+			ownerBal = await lamboContract.balanceOf(accounts[8]).then(res => getNum(res));
+			assert.equal(ownerBal, 1, "Accounts[8] did not receive transferred 1 LAMBO");
+			await lamboContract.transfer(accounts[7], getParamString(1), { from: accounts[8] });
+			ownerBal = await lamboContract.balanceOf(accounts[7]).then(res => getNum(res));
+			assert.equal(ownerBal, 1, "Accounts[7] did not receive transferred 1 LAMBO");
 			
 			// Burn different amounts to test
 			burnResult = await lamboContract.burn(1, { from: accounts[2], gas: 800000 }); 
 			// console.log("Burn result: ", burnResult); // Gas should be less since already updated the monthly, 76k
-			ownerBal = await lamboContract.balanceOf(accounts[9]);
-			console.log("DAO LAMBO (burned 11 total): ", ownerBal.toNumber());
+			ownerBal = await lamboContract.balanceOf(accounts[9]).then(res => getNum(res));
+			console.log("DAO LAMBO (burned 11 total): ", ownerBal.toString());
 			// DAO receives 0 on burn of 1
 
 			burnResult = await lamboContract.burn(3, { from: accounts[2], gas: 800000 });
-			ownerBal = await lamboContract.balanceOf(accounts[9]);
+			ownerBal = await lamboContract.balanceOf(accounts[9]).then(res => getNum(res));
 			ownerBalBefore = ownerBal;
-			console.log("DAO LAMBO (burned 14 total): ", ownerBal.toNumber()); 
+			console.log("DAO LAMBO (burned 14 total): ", ownerBal.toString()); 
 
 			burnResult = await lamboContract.burn(13, { from: accounts[2], gas: 800000 });
-			ownerBal = await lamboContract.balanceOf(accounts[9]);
-			console.log("DAO LAMBO (burned 27 total): ", ownerBal.toNumber());
-			assert.isAbove(ownerBal.toNumber(), ownerBalBefore.toNumber(), "DAO did not earn LAMBO on burn of 13");
+			ownerBal = await lamboContract.balanceOf(accounts[9]).then(res => getNum(res));
+			console.log("DAO LAMBO (burned 27 total): ", ownerBal.toString());
+			assert.isAbove(ownerBal, ownerBalBefore, "DAO did not earn LAMBO on burn of 13");
 
 			// Burn during interval is counting correctly
 			let burnDuring = await lamboContract.burnDuringInterval();
@@ -1553,28 +1571,28 @@ contract('MechaPunkx', (accounts) => {
 			// DAO LAMBO (burned 27 total):  6
 
 			// Test burnFrom
-			ownerBalBefore = await lamboContract.balanceOf(accounts[2]);
-			await lamboContract.approve(accounts[5], 20, { from: accounts[2] });
+			ownerBalBefore = await lamboContract.balanceOf(accounts[2]).then(res => getNum(res));
+			await lamboContract.approve(accounts[5], getParamString(20), { from: accounts[2] });
 			await lamboContract.burnFrom(accounts[2], 10, { from: accounts[5] });
-			ownerBal = await lamboContract.balanceOf(accounts[2]);
-			assert.isBelow(ownerBal.toNumber(), ownerBalBefore.toNumber(), "Accounts[2] did not burn LAMBO by accounts[5]");
+			ownerBal = await lamboContract.balanceOf(accounts[2]).then(res => getNum(res));
+			assert.isBelow(ownerBal, ownerBalBefore, "Accounts[2] did not burn LAMBO by accounts[5]");
 
 			// Yield rate should be updated since burn
 			// Check account is earning equivalent
-			ownerBalBefore = await lamboContract.balanceOf(accounts[2]);
-			console.log("Accounts[2] LAMBO balance before: ", ownerBalBefore.toNumber()); 
+			ownerBalBefore = await lamboContract.balanceOf(accounts[2]).then(res => getNum(res));
+			console.log("Accounts[2] LAMBO balance before: ", ownerBalBefore.toString()); 
 
 			// Pass 5 days
 			await passDaysMulti(5);
 			await lamboContract.claimAll({ from: accounts[2] });
-			ownerBal = await lamboContract.balanceOf(accounts[2]);
-			console.log("Accounts[2] LAMBO balance after: ", ownerBal.toNumber()); // 713 -> 738
-			assert.isAbove(ownerBal.toNumber(), ownerBalBefore.toNumber(), "Accounts[2] did not earn LAMBO at new rate");
+			ownerBal = await lamboContract.balanceOf(accounts[2]).then(res => getNum(res));
+			console.log("Accounts[2] LAMBO balance after: ", ownerBal.toString()); // 713 -> 738
+			assert.isAbove(ownerBal, ownerBalBefore, "Accounts[2] did not earn LAMBO at new rate");
 			// Test claim again doesn't increase balance
 			let ownerBalConstant = ownerBal;
 			await lamboContract.claimAll({ from: accounts[2] });
-			ownerBal = await lamboContract.balanceOf(accounts[2]);
-			assert.equal(ownerBalConstant.toNumber(), ownerBal, "Repeat claim should not increase balance");
+			ownerBal = await lamboContract.balanceOf(accounts[2]).then(res => getNum(res));
+			assert.equal(ownerBalConstant, ownerBal, "Repeat claim should not increase balance");
 
 			let ratesLength = await lamboContract.emissionRatesLength();
 			let rateChangesLength = await lamboContract.emissionRateChangesLength();
@@ -1625,7 +1643,7 @@ contract('MechaPunkx', (accounts) => {
 			assert.equal(r1.toNumber(), 4, "Emission rate is not 4");
 			// Then do a few months of claiming and burning to get values into the burnRates
 			await passDaysMulti(33);
-			await lamboContract.approve(accounts[1], 5000000, { from: accounts[1] });
+			await lamboContract.approve(accounts[1], getParamString(5000000), { from: accounts[1] });
 			claimResult = await lamboContract.claimAll({ from: accounts[1] });
 			claimResult = await lamboContract.claimAll({ from: accounts[2] });
 			await lamboContract.burn(40, { from: accounts[2], gas: 800000 });
@@ -1647,10 +1665,10 @@ contract('MechaPunkx', (accounts) => {
 
 				let r1 = await lamboContract.currentEmissionRate();
 				console.log("\nNext emission rate: ", r1.toNumber());
-				ownerBal = await lamboContract.balanceOf(accounts[1]);
-				console.log("Accounts[1] LAMBO: ", ownerBal.toNumber());
-				ownerBal = await lamboContract.balanceOf(accounts[2]);
-				console.log("Accounts[2] LAMBO: ", ownerBal.toNumber());
+				ownerBal = await lamboContract.balanceOf(accounts[1]).then(res => getNum(res));
+				console.log("Accounts[1] LAMBO: ", ownerBal.toString());
+				ownerBal = await lamboContract.balanceOf(accounts[2]).then(res => getNum(res));
+				console.log("Accounts[2] LAMBO: ", ownerBal.toString());
 
 				let burnRates1 = await lamboContract.burnRates(0);
 				let burnRates2 = await lamboContract.burnRates(1);
@@ -1692,7 +1710,7 @@ contract('MechaPunkx', (accounts) => {
 
 			// Get more LAMBOS for account 2
 			await contract.claimMechTokenAll({ from: accounts[2] });
-			ownerBal = await mechToken.balanceOf(accounts[2]);
+			ownerBal = await mechToken.balanceOf(accounts[2]).then(res => getNum(res));
 			await contract.convertYieldToLambo(6, { from: accounts[2] });
 			await contract.convertYieldToLambo(5, { from: accounts[2] });
 
@@ -1989,19 +2007,19 @@ contract('MechaPunkx', (accounts) => {
 			/*
 			// Attempt claim LAMBO with 20 NFT's yielding LAMBO (very high gas use), after N months or years passes
 			ownerBal = await contract.balanceOf(accounts[2]);
-			console.log("Num MPX by owner: ", ownerBal.toNumber());
+			console.log("Num MPX by owner: ", ownerBal.toString());
 			await contract.seedAllowlist([accounts[2]], 15);
 			await contract.mintAllowlist({ from: accounts[2] });
 
 			ownerBal = await contract.balanceOf(accounts[2]);
-			console.log("Num MPX by owner: ", ownerBal.toNumber());
+			console.log("Num MPX by owner: ", ownerBal.toString());
 			await passDaysMulti(500);
 			await contract.claimMechTokenAll({ from: accounts[2] });
 
 			let ts = await contract.tokensInWallet(accounts[2]);
 			for (let i=0; i<ts.length; i++) {
-				ownerBal = await mechToken.balanceOf(accounts[2]);
-				console.log("MECH before convert: ", ownerBal.toNumber());
+				ownerBal = await mechToken.balanceOf(accounts[2]).then(res => getNum(res));
+				console.log("MECH before convert: ", ownerBal.toString());
 				let converted = await contract.yieldsLambo(ts[i]);
 				if (!converted) {
 					await contract.convertYieldToLambo(ts[i], { from: accounts[2] });
@@ -2035,19 +2053,19 @@ contract('MechaPunkx', (accounts) => {
 			// await contract.transfer(accounts[2], accounts[6], 100, { from: accounts[2] });
 			let cost = await contract.mintCost();
 			console.log("Mint cost: ", cost.toNumber());
-			ownerBal = await mechToken.balanceOf(accounts[2]);
-			console.log("Accounts[2] MECH balance: ", ownerBal.toNumber());
-			await mechToken.transfer(accounts[6], ownerBal.toNumber(), { from: accounts[2] });
+			ownerBal = await mechToken.balanceOf(accounts[2]).then(res => getNum(res));
+			console.log("Accounts[2] MECH balance: ", ownerBal.toString());
+			await mechToken.transfer(accounts[6], getParamString(ownerBal), { from: accounts[2] });
 			// Transfer from accounts[1] and accounts[3] since 2 didn't have enough
 			await contract.claimMechTokenAll({ from: accounts[1] });
 			await contract.claimMechTokenAll({ from: accounts[3] });
-			let ownerBalOther = await mechToken.balanceOf(accounts[1]);
-			await mechToken.transfer(accounts[6], ownerBalOther.toNumber(), { from: accounts[1] });
-			ownerBalOther = await mechToken.balanceOf(accounts[3]);
-			await mechToken.transfer(accounts[6], ownerBalOther.toNumber(), { from: accounts[3] });
+			let ownerBalOther = await mechToken.balanceOf(accounts[1]).then(res => getNum(res));
+			await mechToken.transfer(accounts[6], getParamString(ownerBalOther), { from: accounts[1] });
+			ownerBalOther = await mechToken.balanceOf(accounts[3]).then(res => getNum(res));
+			await mechToken.transfer(accounts[6], getParamString(ownerBalOther), { from: accounts[3] });
 
 			await contract.mintNFT({ from: accounts[2] }).should.be.rejected;
-			await mechToken.approve(contract.address, 50000, { from: accounts[6] });
+			await mechToken.approve(contract.address, getParamString(50000), { from: accounts[6] });
 			await contract.mintNFT({ from: accounts[6] });
 			// See if they can keep claiming
 			await passDaysMulti(15);
@@ -2056,21 +2074,21 @@ contract('MechaPunkx', (accounts) => {
 			await contract.claimMechToken(currentId.toNumber() - 1, { from: accounts[2] }).should.be.rejected;
 			await contract.claimMechToken(currentId.toNumber() - 1, { from: accounts[6] });
 			ownerBalBefore = ownerBal;
-			ownerBal = await mechToken.balanceOf(accounts[6]);
-			assert.isAbove(ownerBal.toNumber(), ownerBalBefore.toNumber(), "New account could not claim after transfer");
+			ownerBal = await mechToken.balanceOf(accounts[6]).then(res => getNum(res));
+			assert.isAbove(ownerBal, ownerBalBefore, "New account could not claim after transfer");
 
 			// Transfer a yielding NFT and make sure new owner can claim LAMBO
 			await contract.convertYieldToLambo(currentId.toNumber() - 1, { from: accounts[6] });
 			await passDaysMulti(15);
 			await contract.claimMechToken(currentId.toNumber() - 1, { from: accounts[6] }).should.be.rejected;
 			await contract.transferFrom(accounts[6], accounts[7], currentId.toNumber() - 1, { from: accounts[6] }); // Also voids any unclaimed MECH
-			ownerBal = await lamboContract.balanceOf(accounts[7]);
+			ownerBal = await lamboContract.balanceOf(accounts[7]).then(res => getNum(res));
 			ownerBalBefore = ownerBal;
-			console.log("Accounts[7] LAMBO balance: ", ownerBal.toNumber());
+			console.log("Accounts[7] LAMBO balance: ", ownerBal.toString());
 			await lamboContract.claimAll({ from: accounts[7] });
-			ownerBal = await lamboContract.balanceOf(accounts[7]);
-			console.log("Accounts[7] LAMBO balance: ", ownerBal.toNumber());
-			assert.isAbove(ownerBal.toNumber(), ownerBalBefore.toNumber(), "Accounts[7] did not earn LAMBO from a transferred Mecha NFT");
+			ownerBal = await lamboContract.balanceOf(accounts[7]).then(res => getNum(res));
+			console.log("Accounts[7] LAMBO balance: ", ownerBal.toString());
+			assert.isAbove(ownerBal, ownerBalBefore, "Accounts[7] did not earn LAMBO from a transferred Mecha NFT");
 			// Make sure accounts[6] can't claim either
 			await contract.claimMechToken(currentId.toNumber() - 1, { from: accounts[6] }).should.be.rejected;
 			await lamboContract.claim(currentId.toNumber() - 1, { from: accounts[6] }).should.be.rejected;
@@ -2080,14 +2098,14 @@ contract('MechaPunkx', (accounts) => {
 
 			// Check we can approve, and someone else can spend an owner's LAMBO, ie. Lambo World contract
 			// Allow [8] to take from [7]
-			await lamboContract.transfer(accounts[8], 100, { from: accounts[8] }).should.be.rejected;
-			await lamboContract.approve(accounts[8], 50000, { from: accounts[7] });
-			await lamboContract.approve(accounts[8], 50000, { from: accounts[7] });
-			ownerBal = await lamboContract.balanceOf(accounts[8]);
-			console.log("Accounts[8] LAMBO balance before transfer from [7]: ", ownerBal.toNumber());
-			await lamboContract.transferFrom(accounts[7], accounts[8], 10, { from: accounts[8] });
-			ownerBal = await lamboContract.balanceOf(accounts[8]);
-			console.log("Accounts[8] LAMBO balance after transfer from [7]: ", ownerBal.toNumber());
+			await lamboContract.transfer(accounts[8], getParamString(100), { from: accounts[8] }).should.be.rejected;
+			// await lamboContract.approve(accounts[8], getParamString(50000), { from: accounts[7] });
+			await lamboContract.approve(accounts[8], getParamString(50000), { from: accounts[7] });
+			ownerBal = await lamboContract.balanceOf(accounts[8]).then(res => getNum(res));
+			console.log("Accounts[8] LAMBO balance before transfer from [7]: ", ownerBal.toString());
+			await lamboContract.transferFrom(accounts[7], accounts[8], getParamString(10), { from: accounts[8] });
+			ownerBal = await lamboContract.balanceOf(accounts[8]).then(res => getNum(res));
+			console.log("Accounts[8] LAMBO balance after transfer from [7]: ", ownerBal.toString());
 
 			// Total supply MECH token:  281
 			// Total supply LAMBO token:  1650
@@ -2095,11 +2113,11 @@ contract('MechaPunkx', (accounts) => {
 
 			// console.log(lamboContract.methods);
 
-			let totalSupplyMech = await mechToken.totalSupply();
-			let totalSupplyLambo = await lamboContract.totalSupply();
+			let totalSupplyMech = await mechToken.totalSupply().then(res => getNum(res));
+			let totalSupplyLambo = await lamboContract.totalSupply().then(res => getNum(res));
 			let totalMinted = await contract.numMinted();
-			console.log("Total supply MECH token: ", totalSupplyMech.toNumber());
-			console.log("Total supply LAMBO token: ", totalSupplyLambo.toNumber());
+			console.log("Total supply MECH token: ", totalSupplyMech.toString());
+			console.log("Total supply LAMBO token: ", totalSupplyLambo.toString());
 			console.log("Total MechaPunkx: ", totalMinted.toNumber());
 			assert.isAbove(totalMinted.toNumber(), 6);
 		});
@@ -2142,7 +2160,7 @@ contract('MechaPunkx', (accounts) => {
 
 			// Approve all to spend MECH
 			for (let i=1; i < nAccounts; i++) {
-				await mechToken.approve(contract.address, 500000, { from: accounts[i] });
+				await mechToken.approve(contract.address, getParamString(500000), { from: accounts[i] });
 				if (i % 50 == 0) {
 					console.log("Approving account: ", i);
 				}
