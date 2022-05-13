@@ -141,7 +141,7 @@ contract MechaPunkx is ERC721, ERC721Enumerable, ERC721Burnable, Ownable, Reentr
 			}
 		}
 		
-		uint256 cost = mintCost();
+		uint256 cost = mintCost() * (10**18);
 		uint256 mechBalance = mech.balanceOf(msg.sender);
 		require(mechBalance >= cost, "Not enough MECH");
 
@@ -172,7 +172,7 @@ contract MechaPunkx is ERC721, ERC721Enumerable, ERC721Burnable, Ownable, Reentr
 		require(ownerOf(tokenId) == msg.sender, "Must be owner");
 		require(lamboYieldStart[tokenId] == 0, "Already yields LAMBO");
 
-		uint256 burnRequirement = 50;
+		uint256 burnRequirement = 50 * (10**18);
 		uint256 mechBalance = mech.balanceOf(msg.sender);
 		require(mechBalance >= burnRequirement, "Need 50 MECH");
 		uint256 allowance = mech.allowance(msg.sender, address(this));

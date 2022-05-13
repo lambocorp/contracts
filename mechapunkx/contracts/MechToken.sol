@@ -53,8 +53,13 @@ contract MechToken is ERC20, ERC20Burnable, Ownable {
 	function claimUpperBound() public view returns (uint256) {
 		
 		uint day = maxEarned();
+
+		if (day > 141) {
+			uint wks = (day - 141) / 7;
+			return 1208 + (100 * wks);
+		}
+
 		uint256[2][17] memory milestones;
-		
 		milestones[0] = [uint256(141),uint256(1208)];
 		milestones[1] = [uint256(135),uint256(1106)];
 		milestones[2] = [uint256(128),uint256(994)];
@@ -72,11 +77,6 @@ contract MechToken is ERC20, ERC20Burnable, Ownable {
 		milestones[14] = [uint256(26),uint256(54)];
 		milestones[15] = [uint256(17),uint256(27)];
 		milestones[16] = [uint256(8),uint256(9)];
-
-		if (day > 141) {
-			uint wks = (day - 141) / 7;
-			return 1208 + (100 * wks);
-		}
 
 		for (uint8 i = 0; i < milestones.length; i++) {
 			if (day >= milestones[i][0]) {
@@ -115,7 +115,7 @@ contract MechToken is ERC20, ERC20Burnable, Ownable {
 		if (canClaim > 0) {
 			claimed[tokenId] += canClaim;
 			address owner = MechaPunkxNFT.ownerOf(tokenId);
-			_mint(owner, canClaim);
+			_mint(owner, canClaim * (10**18));
 		}
 	}
 
@@ -124,10 +124,10 @@ contract MechToken is ERC20, ERC20Burnable, Ownable {
 	function burnNFT(uint256 tokenId, address owner) external onlyOwner {
 		require(tokenExists(tokenId), "tokenId does not exist");
 		
-		uint256 rebate = 1;
+		uint256 rebate = 1 * (10**18);
 
 		if (maxEarned() >= 10) {
-			rebate = MechaPunkxNFT.mintCost() / 2;
+			rebate = (MechaPunkxNFT.mintCost() * (10**18)) / 2;
 		}
 		
 		_mint(owner, rebate);
